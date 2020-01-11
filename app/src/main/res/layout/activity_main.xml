@@ -4,4 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"/>
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/consonant"
+        android:layout_width="158dp"
+        android:layout_height="100dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="156dp" />
+
+    <Button
+        android:id="@+id/vowel"
+        android:layout_width="158dp"
+        android:layout_height="100dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="434dp"
+        tools:layout_editor_absoluteY="156dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
