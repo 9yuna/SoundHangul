@@ -18,6 +18,14 @@ class MainActivity : AppCompatActivity() {
             var nextConsonant = Intent(this, PracticeConsonant::class.java)
             startActivity(nextConsonant)
         }
+
+	var go_vowel = findViewById(R.id.vowel) as Button
+	
+	go_vowel.setOnClickListener{
+		var nextVowel = Intent(this, PracticeVowel::class.java)
+		startActivity(nextVowel)
+	}
+
     }
 
 
