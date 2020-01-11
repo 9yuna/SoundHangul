@@ -9,4 +9,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+
+    consonant.setOnClickListener{
+    	var nextConsonant = Intent(this, PracticeConsonant::class.java)
+	startActivity(nextConsonant)
+    }
 }
