@@ -6,11 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".PracticeVowel">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="vowel"
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="156dp" />
+    <Button
+        android:id="@+id/answer3_btn"
+        android:layout_width="143dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="245dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginBottom="39dp"
+        android:text="Button"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/answer2_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/problem_img"
+        android:layout_width="168dp"
+        android:layout_height="169dp"
+        android:layout_marginStart="282dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="282dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mo1" />
+
+    <Button
+        android:id="@+id/answer1_btn"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="143dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="245dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="39dp"
+        android:text="Button"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/answer2_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/answer2_btn"
+        android:layout_width="143dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="39dp"
+        android:text="Button"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/answer3_btn"
+        app:layout_constraintStart_toEndOf="@+id/answer1_btn"
+        app:layout_constraintTop_toBottomOf="@+id/problem_img" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
