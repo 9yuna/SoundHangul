@@ -6,11 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".PracticeConsonant">
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/sequence"
+        android:layout_width="158dp"
+        android:layout_height="100dp"
+        android:text="순서대로"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/random"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/random"
+        android:layout_width="158dp"
+        android:layout_height="100dp"
+        android:text="무작위로"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/sequence"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="consonant"
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="156dp" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
