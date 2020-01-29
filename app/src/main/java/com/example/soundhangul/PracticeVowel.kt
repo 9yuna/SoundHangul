@@ -1,6 +1,7 @@
 package com.example.soundhangul
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_practice_vowel.*
 import java.util.*
@@ -50,7 +51,17 @@ class PracticeVowel : AppCompatActivity() {
         current_num = 1
         setImgBnt(current_num)
 
-
+        answer1_btn.setOnClickListener{
+            Toast.makeText(this,"정답이 아닙니다.", Toast.LENGTH_SHORT).show()
+        }
+        answer2_btn.setOnClickListener {
+            Toast.makeText(this,"정답이 아닙니다.", Toast.LENGTH_SHORT).show()
+        }
+        answer3_btn.setOnClickListener{
+            Toast.makeText(this,"정답입니다!", Toast.LENGTH_SHORT).show()
+            current_num++
+            setImgBnt(current_num)
+        }
 
     }
 
