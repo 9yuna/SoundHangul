@@ -19,6 +19,7 @@
         <activity android:name=".PracticeConsonant"></activity>
         <activity android:name=".SequenceConsonant"></activity>
         <activity android:name=".PracticeVowel"></activity>
+        <activity android:name=".SequenceVowel"></activity>
 
     </application>
 
