@@ -21,7 +21,7 @@ class PracticeConsonant : AppCompatActivity() {
 
         var go_random = findViewById(R.id.random) as Button
         go_random.setOnClickListener {
-            var nextRandom = Intent(this, SequenceConsonant::class.java)
+            var nextRandom = Intent(this, RandomConsonant::class.java)
             startActivity(nextRandom)
         }
     }
