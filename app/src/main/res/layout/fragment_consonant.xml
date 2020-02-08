@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ConsonantFragement">
 
+    <!-- TODO: Update blank fragment layout -->
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,27 +18,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅏ" />
+                android:text="ㄱ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅑ" />
+                android:text="ㄴ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅓ" />
+                android:text="ㄷ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅕ" />
+                android:text="ㄹ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅗ" />
+                android:text="ㅁ" />
         </TableRow>
 
         <TableRow
@@ -45,27 +48,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅛ" />
+                android:text="ㅂ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅜ" />
+                android:text="ㅅ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅠ" />
+                android:text="ㅇ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅡ" />
+                android:text="ㅈ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅣ" />
+                android:text="ㅊ" />
         </TableRow>
 
         <TableRow
@@ -75,61 +78,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅐ" />
+                android:text="ㅋ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅒ" />
+                android:text="ㅌ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅔ" />
+                android:text="ㅍ" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_green_dark"
-                android:text="ㅖ" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_green_dark"
-                android:text="ㅘ" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_green_dark"
-                android:text="ㅙ" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_green_dark"
-                android:text="ㅚ" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_green_dark"
-                android:text="ㅝ" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_green_dark"
-                android:text="ㅞ" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_green_dark"
-                android:text="ㅟ" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_green_dark"
-                android:text="ㅢ" />
+                android:text="ㅎ" />
         </TableRow>
     </TableLayout>
+
 </FrameLayout>

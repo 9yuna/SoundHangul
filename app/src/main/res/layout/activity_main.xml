@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="70dp"
         android:text="자음연습"
-        app:layout_constraintBottom_toTopOf="@+id/readsound"
+        app:layout_constraintBottom_toTopOf="@+id/soundcard"
         app:layout_constraintEnd_toStartOf="@+id/vowel"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,11 +37,11 @@
         app:layout_constraintGuide_begin="20dp" />
 
     <Button
-        android:id="@+id/readsound"
+        android:id="@+id/soundcard"
         android:layout_width="158dp"
         android:layout_height="100dp"
         android:layout_marginBottom="64dp"
-        android:text="발음듣기"
+        android:text="자음 모음 듣기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.24"

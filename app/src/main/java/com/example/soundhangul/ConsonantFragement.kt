@@ -7,14 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class VowelFragment : Fragment() {
+class ConsonantFragement : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_vowel, container, false)
+        return inflater.inflate(R.layout.fragment_consonant, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -23,14 +23,15 @@ class VowelFragment : Fragment() {
     }
 
     companion object {
-        private const val num = "vowel"
+        private const val num = "consonant"
         @JvmStatic
-        fun newInstance(Number: Int): VowelFragment {
-            return VowelFragment().apply {
+        fun newInstance(Number: Int): ConsonantFragement {
+            return ConsonantFragement().apply {
                 arguments = Bundle().apply {
                     putInt(num, Number)
                 }
             }
         }
     }
+
 }

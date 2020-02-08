@@ -2,13 +2,11 @@ package com.example.soundhangul
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.widget.Button
 import com.kakao.util.helper.Utility.getPackageInfo
 import kotlinx.android.synthetic.main.activity_main.*
 import java.security.MessageDigest
@@ -34,15 +32,11 @@ class MainActivity : AppCompatActivity() {
             val nextVowel = Intent(this@MainActivity, PracticeVowel::class.java)
             startActivity(nextVowel)
         }
-<<<<<<< HEAD
 
-        readsound.setOnClickListener {
-            val nextReadSound = Intent(this@MainActivity, ReadSound::class.java)
+        soundcard.setOnClickListener {
+            val nextReadSound = Intent(this@MainActivity, SoundCard::class.java)
             startActivity(nextReadSound)
         }
-
-=======
->>>>>>> a058289bd27be8726fb29de6566d4de99476ac30
     }
 
     fun getKeyHash(mcon:Context) : String? {

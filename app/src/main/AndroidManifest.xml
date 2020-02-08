@@ -3,8 +3,8 @@
     package="com.example.soundhangul">
 
     <uses-permission android:name="android.permission.INTERNET" />
- //   <uses-permission android:name="android.permission.RECORD_AUDIO" />
-  //  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -17,7 +17,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,14 +25,11 @@
         <activity android:name=".RandomConsonant"></activity>
         <activity android:name=".PracticeVowel"></activity>
         <activity android:name=".SequenceVowel"></activity>
-<<<<<<< HEAD
         <activity android:name=".RandomVowel"></activity>
-        <activity android:name=".ReadSound"></activity>
-=======
+        <activity android:name=".SoundCard"></activity>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="5f6f96de578e95353829c154e0c4c86c" />
->>>>>>> a058289bd27be8726fb29de6566d4de99476ac30
     </application>
 
 </manifest>

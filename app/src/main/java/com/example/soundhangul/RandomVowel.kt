@@ -94,7 +94,7 @@ class RandomVowel : AppCompatActivity() {
                 }
                 moNum = nextmo
                 Log.d("### I(1): ", "$nextmo")
-                setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, moNum)
+                setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, nextmo)
             }else{
                 Log.d("###not I(1): ", "$moNum")
                 btn1.setTextColor(Color.RED)
@@ -113,7 +113,7 @@ class RandomVowel : AppCompatActivity() {
                 }
                 moNum = nextmo
                 Log.d("### I(1): ", "$nextmo")
-                setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, moNum)
+                setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, nextmo)
             }else{
                 Log.d("###not I(2): ", "$moNum")
                 btn2.setTextColor(Color.RED)
@@ -131,7 +131,7 @@ class RandomVowel : AppCompatActivity() {
                 }
                 moNum = nextmo
                 Log.d("### I(1): ", "$nextmo")
-                setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, moNum)
+                setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, nextmo)
             }else{
                 Log.d("###not I(3): ", "$moNum")
                 btn3.setTextColor(Color.RED)
@@ -149,7 +149,7 @@ class RandomVowel : AppCompatActivity() {
                 }
                 moNum = nextmo
                 Log.d("### I(1): ", "$nextmo")
-                setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, moNum)
+                setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, nextmo)
             }else{
                 Log.d("###not I(4): ", "$moNum")
                 btn4.setTextColor(Color.RED)
