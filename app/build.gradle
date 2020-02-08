@@ -32,6 +32,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+<<<<<<< HEAD
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.fragment:fragment-ktx:1.2.1'
+=======
+    implementation group: 'com.kakao.sdk', name: 'newtone', version: '6.0.1'
+>>>>>>> a058289bd27be8726fb29de6566d4de99476ac30
 }
