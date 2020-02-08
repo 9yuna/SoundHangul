@@ -23,6 +23,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(nextVowel)
         }
 
+        readsound.setOnClickListener {
+            val nextReadSound = Intent(this@MainActivity, ReadSound::class.java)
+            startActivity(nextReadSound)
+        }
+
     }
 
 }

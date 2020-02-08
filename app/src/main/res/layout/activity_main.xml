@@ -10,8 +10,9 @@
         android:id="@+id/consonant"
         android:layout_width="158dp"
         android:layout_height="100dp"
+        android:layout_marginTop="70dp"
         android:text="자음연습"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/readsound"
         app:layout_constraintEnd_toStartOf="@+id/vowel"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +22,8 @@
         android:id="@+id/vowel"
         android:layout_width="158dp"
         android:layout_height="100dp"
+        android:layout_marginTop="70dp"
         android:text="모음연습"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/consonant"
@@ -34,4 +35,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
+
+    <Button
+        android:id="@+id/readsound"
+        android:layout_width="158dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="64dp"
+        android:text="발음듣기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

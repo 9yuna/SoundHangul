@@ -20,7 +20,8 @@
         <activity android:name=".SequenceConsonant"></activity>
         <activity android:name=".PracticeVowel"></activity>
         <activity android:name=".SequenceVowel"></activity>
-
+        <activity android:name=".RandomVowel"></activity>
+        <activity android:name=".ReadSound"></activity>
     </application>
 
 </manifest>
