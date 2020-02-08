@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class ConsonantFragement : Fragment() {
+class ConsonantFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +25,8 @@ class ConsonantFragement : Fragment() {
     companion object {
         private const val num = "consonant"
         @JvmStatic
-        fun newInstance(Number: Int): ConsonantFragement {
-            return ConsonantFragement().apply {
+        fun newInstance(Number: Int): ConsonantFragment {
+            return ConsonantFragment().apply {
                 arguments = Bundle().apply {
                     putInt(num, Number)
                 }
