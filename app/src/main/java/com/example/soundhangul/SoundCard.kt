@@ -24,10 +24,5 @@ class SoundCard : AppCompatActivity() {
         val feel=arrayOf("자음","모")
         for(i in 0..1)
             tabs.getTabAt(i)?.setText(feel[i])
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 }
