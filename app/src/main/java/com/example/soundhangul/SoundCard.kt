@@ -18,11 +18,7 @@ class SoundCard : AppCompatActivity() {
         view_pager.adapter = Adapter
 
         // 탭 레아아웃에 뷰페이저 연결
-        tabs.setupWithViewPager(view_pager)
+        //tabs.setupWithViewPager(view_pager)
 
-        // 탭뷰 각각 이름 만들기
-        val feel=arrayOf("자음","모")
-        for(i in 0..1)
-            tabs.getTabAt(i)?.setText(feel[i])
     }
 }
