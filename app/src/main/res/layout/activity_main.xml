@@ -41,7 +41,7 @@
         android:layout_width="158dp"
         android:layout_height="100dp"
         android:layout_marginBottom="64dp"
-        android:text="자음 모음 듣기"
+        android:text="한글 음운 듣기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.24"
