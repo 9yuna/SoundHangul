@@ -1,5 +1,6 @@
 package com.example.soundhangul
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -7,8 +8,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 class ConsonantPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
     val PAGE_MAX_CNT = 14
+    var context: Context? = null
     private val consonantList = arrayOf("ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ")
-
 
     override fun getCount(): Int {
         return PAGE_MAX_CNT
