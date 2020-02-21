@@ -27,6 +27,7 @@
         <activity android:name=".SequenceVowel"></activity>
         <activity android:name=".RandomVowel"></activity>
         <activity android:name=".SoundCard"></activity>
+        <activity android:name=".MakeWord"></activity>
         <activity android:name=".ConsonantPagerAdapter"></activity>
         <meta-data
             android:name="com.kakao.sdk.AppKey"

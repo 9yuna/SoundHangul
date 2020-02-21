@@ -37,6 +37,12 @@ class MainActivity : AppCompatActivity() {
             val nextReadSound = Intent(this@MainActivity, SoundCard::class.java)
             startActivity(nextReadSound)
         }
+
+        makeWord.setOnClickListener {
+            val nextMakeWord = Intent(this@MainActivity, MakeWord::class.java)
+            startActivity(nextMakeWord)
+        }
+        
     }
 
     fun getKeyHash(mcon:Context) : String? {
