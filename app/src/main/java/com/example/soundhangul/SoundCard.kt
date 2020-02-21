@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_sound_card.*
 import kotlinx.android.synthetic.main.activity_sound_card.tabs
 
 
-class SoundCard : AppCompatActivity(){
+public class SoundCard : AppCompatActivity(){
     private val consonantList = arrayOf("ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ")
     //for tts
     val TAG = "Kakao"
@@ -71,21 +71,5 @@ class SoundCard : AppCompatActivity(){
             adapter.getItem(view_pager.currentItem+1)
         }
     }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        when (requestCode) {
-            NETWORK_STATE_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        TextToSpeechManager.getInstance().finalizeLibrary()
-    }
 }
