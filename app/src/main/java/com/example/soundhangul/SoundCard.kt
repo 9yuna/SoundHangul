@@ -1,7 +1,9 @@
 package com.example.soundhangul
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager
@@ -20,6 +22,7 @@ class SoundCard : AppCompatActivity(){
     val NETWORK_STATE_CODE = 0
 
     fun btnclick(str: String){
+        Log.d("tts", str)
         ttsClient?.play(str)
     }
 
@@ -67,5 +70,22 @@ class SoundCard : AppCompatActivity(){
             view_pager.setCurrentItem(view_pager.currentItem+1, false)
             adapter.getItem(view_pager.currentItem+1)
         }
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            NETWORK_STATE_CODE -> {
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        TextToSpeechManager.getInstance().finalizeLibrary()
     }
 }
