@@ -1,19 +1,15 @@
 package com.example.soundhangul
 
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.kakao.sdk.newtoneapi.SpeechRecognizerManager
-import com.kakao.sdk.newtoneapi.TextToSpeechClient
-import com.kakao.sdk.newtoneapi.TextToSpeechListener
-import com.kakao.sdk.newtoneapi.TextToSpeechManager
 import java.util.*
 
 class RandomConsonant : AppCompatActivity() {
@@ -21,10 +17,7 @@ class RandomConsonant : AppCompatActivity() {
     var str = arrayOf("기역", "니은", "디귿", "리을", "미음", "비읍", "시옷", "이응", "지읒", "치읒", "키읔", "티긑", "피흪", "히흫")
     var rnum = intArrayOf(0, 0, 0, 0)
 
-    //for tts
-    val TAG = "Kakao"
-    var ttsClient : TextToSpeechClient? = null
-    val NETWORK_STATE_CODE = 0
+    var tts: TextToSpeech? = null
 
     fun findImage(i: Int): Int{
         var s = "ja" + i.toString()
@@ -96,38 +89,26 @@ class RandomConsonant : AppCompatActivity() {
         var jaumNum:Int = rnd.nextInt(14)
         var nextJaumNum:Int = 987654321
 
-        SpeechRecognizerManager.getInstance().initializeLibrary(this)
-        TextToSpeechManager.getInstance().initializeLibrary(this)
-        ttsClient = TextToSpeechClient.Builder()
-            .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_1)     // 음성합성방식
-            .setSpeechSpeed(1.0)            // 발음 속도(0.5~4.0)
-            .setSpeechVoice(TextToSpeechClient.VOICE_WOMAN_READ_CALM)  //TTS 음색 모드 설정(여성 차분한 낭독체)
-            .setListener(object : TextToSpeechListener {
-                //아래 두개의 메소드만 구현해 주면 된다. 음성합성이 종료될 때 호출된다.
-                override fun onFinished() {
-                    val intSentSize = ttsClient?.getSentDataSize()      //세션 중에 전송한 데이터 사이즈
-                    val intRecvSize = ttsClient?.getReceivedDataSize()  //세션 중에 전송받은 데이터 사이즈
-
-                    val strInacctiveText = "handleFinished() SentSize : $intSentSize  RecvSize : $intRecvSize"
-
-                    Log.i(TAG, strInacctiveText)
+        tts = TextToSpeech(this, TextToSpeech.OnInitListener{
+            if(it == TextToSpeech.SUCCESS) {
+                val result: Int = tts!!.setLanguage(Locale.KOREA)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, "이 언어는 지원하지 않습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    tts!!.setPitch(0.7f)
+                    tts!!.setSpeechRate(1.2f)
                 }
-
-                override fun onError(code: Int, message: String?) {
-                    Log.d(TAG, code.toString())
-                }
-            })
-            .build()
-        //----------
+            }
+        })
 
         // 이미지랑 발음 보여주기
         setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
-        ttsClient?.play(str[jaumNum])
+        tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
         Log.d("### I: ", "$jaumNum")
         // 올바른 버튼 클릭시 다음 자음으로 넘어가기
         btn1.setOnClickListener{
             if(jaumNum == rnum[0]){
-                ttsClient?.play(str[rnum[0]])
+                tts!!.speak(str[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextJaumNum = rnd.nextInt(14)
                 while(nextJaumNum == jaumNum){
                     nextJaumNum = rnd.nextInt(14)
@@ -140,11 +121,11 @@ class RandomConsonant : AppCompatActivity() {
                 Thread.sleep(1000L)
                 setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
                 Thread.sleep(1000L)
-                ttsClient?.play(str[jaumNum])
+                tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
                 Log.d("###not I(1): ", "$jaumNum")
                 btn1.setTextColor(Color.RED)
-                ttsClient?.play(str[rnum[0]])
+                tts!!.speak(str[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
                     btn1.setTextColor(Color.BLACK)
                 }, 200)
@@ -153,7 +134,7 @@ class RandomConsonant : AppCompatActivity() {
 
         btn2.setOnClickListener{
             if(jaumNum == rnum[1]){
-                ttsClient?.play(str[rnum[1]])
+                tts!!.speak(str[rnum[1]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextJaumNum = rnd.nextInt(14)
                 while(nextJaumNum == jaumNum){
                     nextJaumNum = rnd.nextInt(14)
@@ -165,11 +146,11 @@ class RandomConsonant : AppCompatActivity() {
                 Log.d("### I(2): ", "$jaumNum")
                 setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
                 Thread.sleep(1000L)
-                ttsClient?.play(str[jaumNum])
+                tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
                 Log.d("###not I(2): ", "$jaumNum")
                 btn2.setTextColor(Color.RED)
-                ttsClient?.play(str[rnum[1]])
+                tts!!.speak(str[rnum[1]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
                     btn2.setTextColor(Color.BLACK)
                 }, 200)
@@ -177,7 +158,7 @@ class RandomConsonant : AppCompatActivity() {
         }
         btn3.setOnClickListener{
             if(jaumNum == rnum[2]){
-                ttsClient?.play(str[rnum[2]])
+                tts!!.speak(str[rnum[2]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextJaumNum = rnd.nextInt(14)
                 while(nextJaumNum == jaumNum){
                     nextJaumNum = rnd.nextInt(14)
@@ -189,11 +170,11 @@ class RandomConsonant : AppCompatActivity() {
                 Log.d("### I(3): ", "$jaumNum")
                 setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
                 Thread.sleep(1000L)
-                ttsClient?.play(str[jaumNum])
+                tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
                 Log.d("###not I(3): ", "$jaumNum")
                 btn3.setTextColor(Color.RED)
-                ttsClient?.play(str[rnum[2]])
+                tts!!.speak(str[rnum[2]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
                     btn3.setTextColor(Color.BLACK)
                 }, 200)
@@ -201,7 +182,7 @@ class RandomConsonant : AppCompatActivity() {
         }
         btn4.setOnClickListener{
             if(jaumNum == rnum[3]){
-                ttsClient?.play(str[rnum[3]])
+                tts!!.speak(str[rnum[3]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextJaumNum = rnd.nextInt(14)
                 while(nextJaumNum == jaumNum){
                     nextJaumNum = rnd.nextInt(14)
@@ -213,32 +194,15 @@ class RandomConsonant : AppCompatActivity() {
                 Log.d("### I(4): ", "$jaumNum")
                 setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
                 Thread.sleep(1000L)
-                ttsClient?.play(str[jaumNum])
+                tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
                 Log.d("###not I(4): ", "$jaumNum")
                 btn4.setTextColor(Color.RED)
-                ttsClient?.play(str[rnum[3]])
+                tts!!.speak(str[rnum[3]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
                     btn4.setTextColor(Color.BLACK)
                 }, 200)
             }
         }
-    }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        when (requestCode) {
-            NETWORK_STATE_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        TextToSpeechManager.getInstance().finalizeLibrary()
     }
 }

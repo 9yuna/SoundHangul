@@ -1,41 +1,29 @@
 package com.example.soundhangul
 
-import android.content.pm.PackageManager
 import android.graphics.Color.BLACK
 import android.graphics.Color.RED
 import android.os.Bundle
 import android.os.Handler
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.kakao.sdk.newtoneapi.SpeechRecognizerManager
-import com.kakao.sdk.newtoneapi.TextToSpeechClient
-import com.kakao.sdk.newtoneapi.TextToSpeechListener
-import com.kakao.sdk.newtoneapi.TextToSpeechManager
 import java.util.*
-import java.util.jar.Manifest
 
 class SequenceConsonant : AppCompatActivity() {
     var ja = arrayOf("ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ")
     var str = arrayOf("기역", "니은", "디귿", "리을", "미음", "비읍", "시옷", "이응", "지읒", "치읒", "키읔", "티긑", "피흪", "히흫")
     var rnum = intArrayOf(0, 0, 0, 0)
 
-    //for tts
-    val TAG = "Kakao"
-    var ttsClient : TextToSpeechClient? = null
-    val NETWORK_STATE_CODE = 0
+    var tts: TextToSpeech? = null
 
     fun findImage(i: Int): Int{
         var s = "ja" + i.toString()
-
         var drawableResId = resources.getIdentifier(s, "drawable", this.getPackageName())
+
         return drawableResId
     }
 
@@ -96,132 +84,101 @@ class SequenceConsonant : AppCompatActivity() {
         var btn4 = findViewById(R.id.button4) as Button
         var bigJaum = findViewById(R.id.BigJaeum) as ImageView
         var pronunciation = findViewById(R.id.Pronunciation) as TextView
+        var jaumNum: Int = 0
 
-            var jaumNum: Int = 0
-            SpeechRecognizerManager.getInstance().initializeLibrary(this)
-            TextToSpeechManager.getInstance().initializeLibrary(this)
-            ttsClient = TextToSpeechClient.Builder()
-                .setSpeechMode(TextToSpeechClient.NEWTONE_TALK_1)     // 음성합성방식
-                .setSpeechSpeed(1.0)            // 발음 속도(0.5~4.0)
-                .setSpeechVoice(TextToSpeechClient.VOICE_WOMAN_READ_CALM)  //TTS 음색 모드 설정(여성 차분한 낭독체)
-                .setListener(object : TextToSpeechListener {
-                    //아래 두개의 메소드만 구현해 주면 된다. 음성합성이 종료될 때 호출된다.
-                    override fun onFinished() {
-                        val intSentSize = ttsClient?.getSentDataSize()      //세션 중에 전송한 데이터 사이즈
-                        val intRecvSize = ttsClient?.getReceivedDataSize()  //세션 중에 전송받은 데이터 사이즈
-
-                        val strInacctiveText = "handleFinished() SentSize : $intSentSize  RecvSize : $intRecvSize"
-
-                        Log.i(TAG, strInacctiveText)
-                    }
-
-                    override fun onError(code: Int, message: String?) {
-                        Log.d(TAG, code.toString())
-                    }
-                })
-                .build()
-            //----------
-            // 이미지랑 발음 보여주기
-            setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
-            ttsClient?.play(str[jaumNum])
-            Log.d("### I: ", "$jaumNum")
-            // 올바른 버튼 클릭시 다음 자음으로 넘어가기
-            btn1.setOnClickListener {
-                if (jaumNum == rnum[0]) {
-                    ttsClient?.play(str[rnum[0]])
-                    jaumNum++
-                    if (jaumNum == 14) jaumNum = 0
-                    Log.d("### I(1): ", "$jaumNum")
-                    Thread.sleep(1000L)
-                    setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
-                    Thread.sleep(1000L)
-                    ttsClient?.play(str[jaumNum])
+        tts = TextToSpeech(this, TextToSpeech.OnInitListener{
+            if(it == TextToSpeech.SUCCESS) {
+                val result: Int = tts!!.setLanguage(Locale.KOREA)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, "이 언어는 지원하지 않습니다.", Toast.LENGTH_SHORT).show()
                 } else {
-                    Log.d("###not I(1): ", "$jaumNum")
-                    btn1.setTextColor(RED)
-                    ttsClient?.play(str[rnum[0]])
-
-                    Handler().postDelayed({
-                        btn1.setTextColor(BLACK)
-                    }, 200)
+                    tts!!.setPitch(0.7f)
+                    tts!!.setSpeechRate(1.2f)
                 }
             }
+        })
 
-            btn2.setOnClickListener {
-                if (jaumNum == rnum[1]) {
-                    ttsClient?.play(str[rnum[1]])
-                    jaumNum++
-                    if (jaumNum == 14) jaumNum = 0
-                    Log.d("### I(2): ", "$jaumNum")
-                    Thread.sleep(1000L)
-                    setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
-                    Thread.sleep(1000L)
-                    ttsClient?.play(str[jaumNum])
-                } else {
-                    Log.d("###not I(2): ", "$jaumNum")
-                    btn2.setTextColor(RED)
-                    ttsClient?.play(str[rnum[1]])
-                    Handler().postDelayed({
-                        btn2.setTextColor(BLACK)
-                    }, 200)
-                }
-            }
-            btn3.setOnClickListener {
-                if (jaumNum == rnum[2]) {
-                    ttsClient?.play(str[rnum[2]])
-                    jaumNum++
-                    if (jaumNum == 14) jaumNum = 0
-                    Log.d("### I(3): ", "$jaumNum")
-                    Thread.sleep(1000L)
-                    setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
-                    Thread.sleep(1000L)
-                    ttsClient?.play(str[jaumNum])
-                } else {
-                    Log.d("###not I(3): ", "$jaumNum")
-                    btn3.setTextColor(RED)
-                    ttsClient?.play(str[rnum[2]])
-                    Handler().postDelayed({
-                        btn3.setTextColor(BLACK)
-                    }, 200)
-                }
-            }
-            btn4.setOnClickListener {
-                if (jaumNum == rnum[3]) {
-                    ttsClient?.play(str[rnum[3]])
-                    jaumNum++
-                    if (jaumNum == 14) jaumNum = 0
-                    Log.d("### I(4): ", "$jaumNum")
-                    Thread.sleep(1000L)
-                    setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
-                    Thread.sleep(1000L)
-                    ttsClient?.play(str[jaumNum])
-                } else {
-                    Log.d("###not I(4): ", "$jaumNum")
-                    btn4.setTextColor(RED)
-                    ttsClient?.play(str[rnum[3]])
-                    Handler().postDelayed({
-                        btn4.setTextColor(BLACK)
-                    }, 200)
-                }
-            }
-        //}
-    }
+        setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+        tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
+        Log.d("### I: ", "$jaumNum")
+        // 올바른 버튼 클릭시 다음 자음으로 넘어가기
+        btn1.setOnClickListener {
+            if (jaumNum == rnum[0]) {
+                tts!!.speak(str[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
+                jaumNum++
+                if (jaumNum == 14) jaumNum = 0
+                Log.d("### I(1): ", "$jaumNum")
+                Thread.sleep(1000L)
+                setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+                Thread.sleep(1000L)
+                tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
+            } else {
+                Log.d("###not I(1): ", "$jaumNum")
+                btn1.setTextColor(RED)
+                tts!!.speak(str[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        when (requestCode) {
-            NETWORK_STATE_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-                }
+                Handler().postDelayed({
+                    btn1.setTextColor(BLACK)
+                }, 200)
             }
         }
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        TextToSpeechManager.getInstance().finalizeLibrary()
+
+        btn2.setOnClickListener {
+            if (jaumNum == rnum[1]) {
+                tts!!.speak(str[rnum[1]], TextToSpeech.QUEUE_FLUSH, null,null)
+                jaumNum++
+                if (jaumNum == 14) jaumNum = 0
+                Log.d("### I(2): ", "$jaumNum")
+                Thread.sleep(1000L)
+                setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+                Thread.sleep(1000L)
+                tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
+            } else {
+                Log.d("###not I(2): ", "$jaumNum")
+                btn2.setTextColor(RED)
+                tts!!.speak(str[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
+                Handler().postDelayed({
+                    btn2.setTextColor(BLACK)
+                }, 200)
+            }
+        }
+        btn3.setOnClickListener {
+            if (jaumNum == rnum[2]) {
+                tts!!.speak(str[rnum[2]], TextToSpeech.QUEUE_FLUSH, null,null)
+                jaumNum++
+                if (jaumNum == 14) jaumNum = 0
+                Log.d("### I(3): ", "$jaumNum")
+                Thread.sleep(1000L)
+                setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+                Thread.sleep(1000L)
+                tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
+            } else {
+                Log.d("###not I(3): ", "$jaumNum")
+                btn3.setTextColor(RED)
+                tts!!.speak(str[rnum[2]], TextToSpeech.QUEUE_FLUSH, null,null)
+                Handler().postDelayed({
+                    btn3.setTextColor(BLACK)
+                }, 200)
+            }
+        }
+        btn4.setOnClickListener {
+            if (jaumNum == rnum[3]) {
+                tts!!.speak(str[rnum[3]], TextToSpeech.QUEUE_FLUSH, null,null)
+                jaumNum++
+                if (jaumNum == 14) jaumNum = 0
+                Log.d("### I(4): ", "$jaumNum")
+                Thread.sleep(1000L)
+                setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+                Thread.sleep(1000L)
+                tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
+            } else {
+                Log.d("###not I(4): ", "$jaumNum")
+                btn4.setTextColor(RED)
+                tts!!.speak(str[rnum[3]], TextToSpeech.QUEUE_FLUSH, null,null)
+                Handler().postDelayed({
+                    btn4.setTextColor(BLACK)
+                }, 200)
+            }
+        }
     }
 }

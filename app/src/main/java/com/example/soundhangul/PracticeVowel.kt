@@ -3,10 +3,7 @@ package com.example.soundhangul
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_practice_vowel.*
-import java.util.*
 
 
 class PracticeVowel : AppCompatActivity() {

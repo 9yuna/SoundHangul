@@ -2,15 +2,17 @@ package com.example.soundhangul
 
 
 import android.os.Bundle
-import android.util.Log
+import android.speech.tts.TextToSpeech
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import kotlinx.android.synthetic.main.fragment_ja_fragment14.*
+import android.widget.Toast
+import java.util.*
 
 class JaFragment14 : Fragment() {
+    var tts: TextToSpeech? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,46 +31,49 @@ class JaFragment14 : Fragment() {
         var Ja9 = view!!.findViewById<View>(R.id.paBtn8) as Button
         var Ja10 = view!!.findViewById<View>(R.id.paBtn9) as Button
 
+        tts = TextToSpeech(activity, TextToSpeech.OnInitListener{
+            if(it == TextToSpeech.SUCCESS) {
+                val result: Int = tts!!.setLanguage(Locale.KOREA)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(activity, "이 언어는 지원하지 않습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    tts!!.setPitch(0.7f)
+                    tts!!.setSpeechRate(1.2f)
+                }
+            }
+        })
+
         Ja1.setOnClickListener {
-            Log.d("button", Ja1.text.toString())
-            SoundCard().btnclick(Ja1.text.toString())
+            tts!!.speak(Ja1.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja2.setOnClickListener {
-            Log.d("button", Ja2.text.toString())
-            SoundCard().btnclick(Ja2.text.toString())
+            tts!!.speak(Ja2.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja3.setOnClickListener {
-            Log.d("button", Ja3.text.toString())
-            SoundCard().btnclick(Ja3.text.toString())
+            tts!!.speak(Ja3.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja4.setOnClickListener {
-            Log.d("button", Ja4.text.toString())
-            SoundCard().btnclick(Ja4.text.toString())
+            tts!!.speak(Ja4.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja5.setOnClickListener {
-            Log.d("button", Ja5.text.toString())
-            SoundCard().btnclick(Ja5.text.toString())
+            tts!!.speak(Ja5.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja6.setOnClickListener {
-            Log.d("button", Ja6.text.toString())
-            SoundCard().btnclick(Ja6.text.toString())
+            tts!!.speak(Ja6.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja7.setOnClickListener {
-            Log.d("button", Ja7.text.toString())
-            SoundCard().btnclick(Ja7.text.toString())
+            tts!!.speak(Ja7.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja8.setOnClickListener {
-            Log.d("button", Ja8.text.toString())
-            SoundCard().btnclick(Ja8.text.toString())
+            tts!!.speak(Ja8.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja9.setOnClickListener {
-            Log.d("button", Ja9.text.toString())
-            SoundCard().btnclick(Ja9.text.toString())
+            tts!!.speak(Ja9.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
         Ja10.setOnClickListener {
-            Log.d("button", Ja10.text.toString())
-            SoundCard().btnclick(Ja10.text.toString())
+            tts!!.speak(Ja10.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
         }
+
 
         return view
     }

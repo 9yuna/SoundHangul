@@ -1,20 +1,12 @@
 package com.example.soundhangul
 
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import com.kakao.sdk.newtoneapi.SpeechRecognizerManager
-import com.kakao.sdk.newtoneapi.TextToSpeechClient
-import com.kakao.sdk.newtoneapi.TextToSpeechListener
-import com.kakao.sdk.newtoneapi.TextToSpeechManager
 import kotlinx.android.synthetic.main.activity_sound_card.*
 import kotlinx.android.synthetic.main.activity_sound_card.tabs
 
 
-public class SoundCard : AppCompatActivity(){
+class SoundCard : AppCompatActivity(){
     private val consonantList = arrayOf("ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +15,6 @@ public class SoundCard : AppCompatActivity(){
 
         val adapter = ConsonantPagerAdapter(supportFragmentManager)
         view_pager.adapter = adapter
-        // 탭 레아아웃에 뷰페이저 연결
         tabs.setupWithViewPager(view_pager)
 
         for(i in 0..13){

@@ -3,10 +3,11 @@ package com.example.soundhangul
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import android.speech.tts.TextToSpeech
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
@@ -15,11 +16,12 @@ class RandomVowel : AppCompatActivity() {
     var moStr = arrayOf("아", "야", "어", "여", "오","요","우", "유", "으", "이", "애", "얘", "에", "예", "와", "왜", "외","워","웨","위","의")
     var rnum = intArrayOf(0, 0, 0, 0)
 
+    var tts: TextToSpeech? = null
+
     fun findImage(i: Int): Int{
         var s = "mo" + i.toString()
-
         var drawableResId = resources.getIdentifier(s, "drawable", this.getPackageName())
-        //imageView.setImageResource(drawableResId)
+
         return drawableResId
     }
 
@@ -58,8 +60,8 @@ class RandomVowel : AppCompatActivity() {
     }
 
     fun setNextMoum(bigMoum: ImageView, pronunciation: TextView, btn1 : Button, btn2 : Button, btn3 : Button, btn4 : Button, moNum : Int){
-        bigMoum.setImageResource(findImage(moNum+1)) //i
-        pronunciation.setText(moStr[moNum])   //i-1
+        bigMoum.setImageResource(findImage(moNum+1))
+        pronunciation.setText(moStr[moNum])
         randomButton(moNum)
         btn1.setText(mo[rnum[0]])
         btn2.setText(mo[rnum[1]])
@@ -77,28 +79,41 @@ class RandomVowel : AppCompatActivity() {
         var btn4 = findViewById(R.id.answer4_btn) as Button
         var bigMoum = findViewById(R.id.problem_img) as ImageView
         var pronunciation = findViewById(R.id.Pronunciation) as TextView
-        var rnd = Random()
 
+        var rnd = Random()
         var moNum:Int = rnd.nextInt(20)
         var nextmo:Int = rnd.nextInt(20)
 
-        // 이미지랑 발음 보여주기
+        tts = TextToSpeech(this, TextToSpeech.OnInitListener{
+            if(it == TextToSpeech.SUCCESS) {
+                val result: Int = tts!!.setLanguage(Locale.KOREA)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, "이 언어는 지원하지 않습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    tts!!.setPitch(0.7f)
+                    tts!!.setSpeechRate(1.2f)
+                }
+            }
+        })
+
         setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, moNum)
-        Log.d("### I: ", "$moNum")
-        // 올바른 버튼 클릭시 다음 자음으로 넘어가기
+        tts!!.speak(moStr[moNum], TextToSpeech.QUEUE_FLUSH, null,null)
+
         btn1.setOnClickListener{
             if(moNum == rnum[0]){
+                tts!!.speak(moStr[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextmo = rnd.nextInt(20)
                 while(nextmo == moNum){
                     nextmo = rnd.nextInt(20)
                 }
                 moNum = nextmo
-                Log.d("### I(1): ", "$nextmo")
+                Thread.sleep(1000L)
                 setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, nextmo)
+                Thread.sleep(1000L)
+                tts!!.speak(moStr[moNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
-                Log.d("###not I(1): ", "$moNum")
                 btn1.setTextColor(Color.RED)
-
+                tts!!.speak(moStr[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
                     btn1.setTextColor(Color.BLACK)
                 }, 200)
@@ -107,17 +122,19 @@ class RandomVowel : AppCompatActivity() {
 
         btn2.setOnClickListener{
             if(moNum == rnum[1]){
+                tts!!.speak(moStr[rnum[1]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextmo = rnd.nextInt(20)
                 while(nextmo == moNum){
                     nextmo = rnd.nextInt(20)
                 }
                 moNum = nextmo
-                Log.d("### I(1): ", "$nextmo")
+                Thread.sleep(1000L)
                 setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, nextmo)
+                Thread.sleep(1000L)
+                tts!!.speak(moStr[moNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
-                Log.d("###not I(2): ", "$moNum")
                 btn2.setTextColor(Color.RED)
-
+                tts!!.speak(moStr[rnum[1]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
                     btn2.setTextColor(Color.BLACK)
                 }, 200)
@@ -125,17 +142,19 @@ class RandomVowel : AppCompatActivity() {
         }
         btn3.setOnClickListener{
             if(moNum == rnum[2]){
+                tts!!.speak(moStr[rnum[2]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextmo = rnd.nextInt(20)
                 while(nextmo == moNum){
                     nextmo = rnd.nextInt(20)
                 }
                 moNum = nextmo
-                Log.d("### I(1): ", "$nextmo")
+                Thread.sleep(1000L)
                 setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, nextmo)
+                Thread.sleep(1000L)
+                tts!!.speak(moStr[moNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
-                Log.d("###not I(3): ", "$moNum")
                 btn3.setTextColor(Color.RED)
-
+                tts!!.speak(moStr[rnum[2]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
                     btn3.setTextColor(Color.BLACK)
                 }, 200)
@@ -143,23 +162,24 @@ class RandomVowel : AppCompatActivity() {
         }
         btn4.setOnClickListener{
             if(moNum == rnum[3]){
+                tts!!.speak(moStr[rnum[3]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextmo = rnd.nextInt(20)
                 while(nextmo == moNum){
                     nextmo = rnd.nextInt(20)
                 }
                 moNum = nextmo
-                Log.d("### I(1): ", "$nextmo")
+                Thread.sleep(1000L)
                 setNextMoum(bigMoum, pronunciation, btn1, btn2, btn3, btn4, nextmo)
+                Thread.sleep(1000L)
+                tts!!.speak(moStr[moNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
-                Log.d("###not I(4): ", "$moNum")
                 btn4.setTextColor(Color.RED)
-
+                tts!!.speak(moStr[rnum[3]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
                     btn4.setTextColor(Color.BLACK)
                 }, 200)
             }
         }
-
 
     }
 }
