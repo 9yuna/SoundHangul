@@ -3,6 +3,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,113 @@ class MakeWord : AppCompatActivity() {
     var ja = arrayOf("ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ")
     var mo = arrayOf("ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ","ㅛ","ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ", "ㅘ", "ㅙ", "ㅚ","ㅝ","ㅞ","ㅟ","ㅢ")
     var case=0
+    //val words = mapOf(0 to "ㄴ ㅏ ㅂ ㅣ", 1 to "ㄴ ㅏ ㅁ ㅜ", 2 to "ㄱ ㅠ ㄴ ㅏ", 3 to "ㅇ ㅜ ㅇ ㅠ")
+    val words = mapOf(0 to "ㅎ ㅗ ㅇ ㅜ", 1 to "ㅇ ㅡ ㅇ ㅟ", 2 to "ㄱ ㅠ ㄴ ㅡ", 3 to "ㅇ ㅜ ㅇ ㅠ")
+
+    lateinit var firstJa:TextView
+    lateinit var firstMo:TextView
+    lateinit var secondJa:TextView
+    lateinit var secondMo:TextView
+
+    fun checkIndex(jamo: String, type:Int): Int{
+        var realIndex=0
+
+        if(type % 2 ==0){ // ja
+            for(i in 0..ja.size-1){
+                if(ja[i] == jamo){
+                    realIndex = i
+                    break
+                }
+            }
+        }else{ //mo
+            for(j in 0..mo.size-1){
+                if(mo[j] == jamo){
+                    realIndex = j
+                    break;
+                }
+            }
+        }
+        return realIndex
+    }
+
+    fun findWordByCase(case: Int){
+        var str = words.get(case)
+        val jamojamo = str!!.split(" ")
+
+        var type = 0 //0 :ja 1:mo
+        wordNum[0] = checkIndex(jamojamo[0], 0)
+        wordNum[1] = checkIndex(jamojamo[1], 1)
+        wordNum[2] = checkIndex(jamojamo[2], 0)
+        wordNum[3] = checkIndex(jamojamo[3], 1)
+    }
+
+    fun getRandomWord(){
+        var rnd = Random()
+        case = rnd.nextInt(4)
+
+        ganaJa1.setVisibility(View.GONE)
+        ganaMo1.setVisibility(View.GONE)
+        ganaJa2.setVisibility(View.GONE)
+        ganaMo2.setVisibility(View.GONE)
+
+        ganuJa1.setVisibility(View.GONE)
+        ganuMo1.setVisibility(View.GONE)
+        ganuJa2.setVisibility(View.GONE)
+        ganuMo2.setVisibility(View.GONE)
+
+        gunaJa1.setVisibility(View.GONE)
+        gunaMo1.setVisibility(View.GONE)
+        gunaJa2.setVisibility(View.GONE)
+        gunaMo2.setVisibility(View.GONE)
+
+        gunuJa1.setVisibility(View.GONE)
+        gunuMo1.setVisibility(View.GONE)
+        gunuJa2.setVisibility(View.GONE)
+        gunaMo2.setVisibility(View.GONE)
+
+        when(case){
+            0 -> {
+                ganaJa1.setVisibility(View.VISIBLE)
+                ganaMo1.setVisibility(View.VISIBLE)
+                ganaJa2.setVisibility(View.VISIBLE)
+                ganaMo2.setVisibility(View.VISIBLE)
+                firstJa = ganaJa1
+                firstMo = ganaMo1
+                secondJa = ganaJa2
+                secondMo = ganaMo2
+            }
+            1 -> {
+                ganuJa1.setVisibility(View.VISIBLE)
+                ganuMo1.setVisibility(View.VISIBLE)
+                ganuJa2.setVisibility(View.VISIBLE)
+                ganuMo2.setVisibility(View.VISIBLE)
+                firstJa = ganuJa1
+                firstMo = ganuMo1
+                secondJa = ganuJa2
+                secondMo = ganuMo2
+            }
+            2 -> {
+                gunaJa1.setVisibility(View.VISIBLE)
+                gunaMo1.setVisibility(View.VISIBLE)
+                gunaJa2.setVisibility(View.VISIBLE)
+                gunaMo2.setVisibility(View.VISIBLE)
+                firstJa = gunaJa1
+                firstMo = gunaMo1
+                secondJa = gunaJa2
+                secondMo = gunaMo2
+            }
+            3 -> {
+                gunuJa1.setVisibility(View.VISIBLE)
+                gunuMo1.setVisibility(View.VISIBLE)
+                gunuJa2.setVisibility(View.VISIBLE)
+                gunaMo2.setVisibility(View.VISIBLE)
+                firstJa = gunuJa1
+                firstMo = gunuMo1
+                secondJa = gunuJa2
+                secondMo = gunaMo2
+            }
+        }
+    }
 
     fun jaumRandomButton(hubo: Int){
         var rnd = Random()
@@ -106,14 +214,12 @@ class MakeWord : AppCompatActivity() {
             btn5.setText(mo[rnum[4]])
         }
     }
-    fun setFragRandom(){
+
+    fun setWordCaseRandom(){
         var rnd = Random()
         case = rnd.nextInt(4)
     }
 
-    fun getWord(data: IntArray){
-        wordNum = data
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,166 +231,160 @@ class MakeWord : AppCompatActivity() {
         var btn4 = findViewById<Button>(R.id.button4)
         var btn5 = findViewById<Button>(R.id.button5)
 
-        val adap =  WordCaseAdapter(supportFragmentManager)
-        view_pager2.adapter = adap
-        setFragRandom()
-        view_pager2.setCurrentItem(case)  // Apater 바꾸기
 
-        for(i in 0..3)
-            println(wordNum[i])
-
-
-
-    }
-/*
-    fun tmp(){
-
-
-        //해당 자음 모음 확인하기
-
-
+//해당 자음 모음 확인하기
+        firstJa.setText(ja[wordNum[0]])
+        firstMo.setText(mo[wordNum[1]])
+        secondJa.setText(ja[wordNum[2]])
+        secondMo.setText(mo[wordNum[3]])
+        firstJa.setTextColor(Color.rgb(202, 204, 206))
+        firstMo.setTextColor(Color.rgb(202, 204, 206))
+        secondJa.setTextColor(Color.rgb(202, 204, 206))
+        secondMo.setTextColor(Color.rgb(202, 204, 206))
 
 
         //버튼 보여주기
-       // var wordIndex = 0
+        
+        var type=0
         setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
 
-            //올바른 버튼 선택 --> 색 진하게, type 따라 자음 모음 버튼 바꾸기
-            //아닌 버튼 --> 버튼 빨갛게 깜빡
-            btn1.setOnClickListener{
-                if(wordNum[type] == rnum[0]){
-                    if(type % 2 ==0) {
-                        if (type == 0) firstJa.setTextColor(Color.BLUE)
-                        if (type == 2) secondJa.setTextColor(Color.BLUE)
-                    }else{
-                        if(type == 1) firstMo.setTextColor(Color.BLUE)
-                        if(type == 3) secondMo.setTextColor(Color.BLUE)
-                    }
-                    type += 1
-                 //   wordIndex += 1
-
-                    Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
-                    Log.d("type", type.toString())
-                    Log.d("wordtype", wordNum[type].toString())
-                    //Thread.sleep(1000L)
-                    //ttsClient?.play(str[jaumNum])
-                }else{
-                    btn1.setTextColor(Color.RED)
-                    //ttsClient?.play(str[rnum[0]])
-                    Handler().postDelayed({
-                        btn1.setTextColor(Color.BLACK)
-                    }, 200)
+        //올바른 버튼 선택 --> 색 진하게, type 따라 자음 모음 버튼 바꾸기
+        //아닌 버튼 --> 버튼 빨갛게 깜빡
+        btn1.setOnClickListener {
+            if (wordNum[type] == rnum[0]) {
+                if (type % 2 == 0) {
+                    if (type == 0) firstJa.setTextColor(Color.BLUE)
+                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                } else {
+                    if (type == 1) firstMo.setTextColor(Color.BLUE)
+                    if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
+                type += 1
+                //   wordIndex += 1
+
+                Thread.sleep(1000L)
+                setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
+                Log.d("type", type.toString())
+                Log.d("wordtype", wordNum[type].toString())
+                //Thread.sleep(1000L)
+                //ttsClient?.play(str[jaumNum])
+            } else {
+                btn1.setTextColor(Color.RED)
+                //ttsClient?.play(str[rnum[0]])
+                Handler().postDelayed({
+                    btn1.setTextColor(Color.BLACK)
+                }, 200)
             }
+        }
 
-            btn2.setOnClickListener{
-                if(wordNum[type] == rnum[1]){
-                    if(type % 2 ==0) {
-                        if (type == 0) firstJa.setTextColor(Color.BLUE)
-                        if (type == 2) secondJa.setTextColor(Color.BLUE)
-                    }else{
-                        if(type == 1) firstMo.setTextColor(Color.BLUE)
-                        if(type == 3) secondMo.setTextColor(Color.BLUE)
-                    }
-                    type += 1
-               //     wordIndex += 1
-
-                    Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
-                    Log.d("type", type.toString())
-                    Log.d("wordtype", wordNum[type].toString())
-                    //Thread.sleep(1000L)
-                    //ttsClient?.play(str[jaumNum])
-                }else{
-                    btn2.setTextColor(Color.RED)
-                    //ttsClient?.play(str[rnum[0]])
-                    Handler().postDelayed({
-                        btn2.setTextColor(Color.BLACK)
-                    }, 200)
+        btn2.setOnClickListener {
+            if (wordNum[type] == rnum[1]) {
+                if (type % 2 == 0) {
+                    if (type == 0) firstJa.setTextColor(Color.BLUE)
+                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                } else {
+                    if (type == 1) firstMo.setTextColor(Color.BLUE)
+                    if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
+                type += 1
+                //     wordIndex += 1
+
+                Thread.sleep(1000L)
+                setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
+                Log.d("type", type.toString())
+                Log.d("wordtype", wordNum[type].toString())
+                //Thread.sleep(1000L)
+                //ttsClient?.play(str[jaumNum])
+            } else {
+                btn2.setTextColor(Color.RED)
+                //ttsClient?.play(str[rnum[0]])
+                Handler().postDelayed({
+                    btn2.setTextColor(Color.BLACK)
+                }, 200)
             }
+        }
 
-            btn3.setOnClickListener{
-                if(wordNum[type] == rnum[2]){
-                    if(type % 2 ==0) {
-                        if (type == 0) firstJa.setTextColor(Color.BLUE)
-                        if (type == 2) secondJa.setTextColor(Color.BLUE)
-                    }else{
-                        if(type == 1) firstMo.setTextColor(Color.BLUE)
-                        if(type == 3) secondMo.setTextColor(Color.BLUE)
-                    }
-                    type += 1
-                 //   wordIndex += 1
-
-                    Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
-                    Log.d("type", type.toString())
-                    Log.d("wordtype", wordNum[type].toString())
-                    //Thread.sleep(1000L)
-                    //ttsClient?.play(str[jaumNum])
-                }else{
-                    btn3.setTextColor(Color.RED)
-                    //ttsClient?.play(str[rnum[0]])
-                    Handler().postDelayed({
-                        btn3.setTextColor(Color.BLACK)
-                    }, 200)
+        btn3.setOnClickListener {
+            if (wordNum[type] == rnum[2]) {
+                if (type % 2 == 0) {
+                    if (type == 0) firstJa.setTextColor(Color.BLUE)
+                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                } else {
+                    if (type == 1) firstMo.setTextColor(Color.BLUE)
+                    if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
-            }
+                type += 1
+                //   wordIndex += 1
 
-            btn4.setOnClickListener{
-                if(wordNum[type] == rnum[3]){
-                    if(type % 2 ==0) {
-                        if (type == 0) firstJa.setTextColor(Color.BLUE)
-                        if (type == 2) secondJa.setTextColor(Color.BLUE)
-                    }else{
-                        if(type == 1) firstMo.setTextColor(Color.BLUE)
-                        if(type == 3) secondMo.setTextColor(Color.BLUE)
-                    }
-                    type += 1
+                Thread.sleep(1000L)
+                setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
+                Log.d("type", type.toString())
+                Log.d("wordtype", wordNum[type].toString())
+                //Thread.sleep(1000L)
+                //ttsClient?.play(str[jaumNum])
+            } else {
+                btn3.setTextColor(Color.RED)
+                //ttsClient?.play(str[rnum[0]])
+                Handler().postDelayed({
+                    btn3.setTextColor(Color.BLACK)
+                }, 200)
+            }
+        }
+
+        btn4.setOnClickListener {
+            if (wordNum[type] == rnum[3]) {
+                if (type % 2 == 0) {
+                    if (type == 0) firstJa.setTextColor(Color.BLUE)
+                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                } else {
+                    if (type == 1) firstMo.setTextColor(Color.BLUE)
+                    if (type == 3) secondMo.setTextColor(Color.BLUE)
+                }
+                type += 1
                 //    wordIndex += 1
 
-                    Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
-                    Log.d("type", type.toString())
-                    Log.d("wordtype", wordNum[type].toString())
-                    //Thread.sleep(1000L)
-                    //ttsClient?.play(str[jaumNum])
-                }else{
-                    btn4.setTextColor(Color.RED)
-                    //ttsClient?.play(str[rnum[0]])
-                    Handler().postDelayed({
-                        btn4.setTextColor(Color.BLACK)
-                    }, 200)
-                }
+                Thread.sleep(1000L)
+                setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
+                Log.d("type", type.toString())
+                Log.d("wordtype", wordNum[type].toString())
+                //Thread.sleep(1000L)
+                //ttsClient?.play(str[jaumNum])
+            } else {
+                btn4.setTextColor(Color.RED)
+                //ttsClient?.play(str[rnum[0]])
+                Handler().postDelayed({
+                    btn4.setTextColor(Color.BLACK)
+                }, 200)
             }
+        }
 
-            btn5.setOnClickListener{
-                if(wordNum[type] == rnum[4]){
-                    if(type % 2 ==0) {
-                        if (type == 0) firstJa.setTextColor(Color.BLUE)
-                        if (type == 2) secondJa.setTextColor(Color.BLUE)
-                    }else{
-                        if(type == 1) firstMo.setTextColor(Color.BLUE)
-                        if(type == 3) secondMo.setTextColor(Color.BLUE)
-                    }
-                    type += 1
-                        //      wordIndex += 1
-
-                    Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
-                    Log.d("type", type.toString())
-                    Log.d("wordtype", wordNum[type].toString())
-                    //Thread.sleep(1000L)
-                    //ttsClient?.play(str[jaumNum])
-                }else{
-                    btn5.setTextColor(Color.RED)
-                    //ttsClient?.play(str[rnum[0]])
-                    Handler().postDelayed({
-                        btn5.setTextColor(Color.BLACK)
-                    }, 200)
+        btn5.setOnClickListener {
+            if (wordNum[type] == rnum[4]) {
+                if (type % 2 == 0) {
+                    if (type == 0) firstJa.setTextColor(Color.BLUE)
+                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                } else {
+                    if (type == 1) firstMo.setTextColor(Color.BLUE)
+                    if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
+                type += 1
+                //      wordIndex += 1
+
+                Thread.sleep(1000L)
+                setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
+                Log.d("type", type.toString())
+                Log.d("wordtype", wordNum[type].toString())
+                //Thread.sleep(1000L)
+                //ttsClient?.play(str[jaumNum])
+            } else {
+                btn5.setTextColor(Color.RED)
+                //ttsClient?.play(str[rnum[0]])
+                Handler().postDelayed({
+                    btn5.setTextColor(Color.BLACK)
+                }, 200)
             }
+        }
     }
-*/
+
+
 }
