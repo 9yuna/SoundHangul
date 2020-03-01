@@ -23,8 +23,7 @@ class MakeWord : AppCompatActivity() {
     var ja = arrayOf("ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ")
     var mo = arrayOf("ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ","ㅛ","ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ", "ㅘ", "ㅙ", "ㅚ","ㅝ","ㅞ","ㅟ","ㅢ")
     var case=0
-    //val words = mapOf(0 to "ㄴ ㅏ ㅂ ㅣ", 1 to "ㄴ ㅏ ㅁ ㅜ", 2 to "ㄱ ㅠ ㄴ ㅏ", 3 to "ㅇ ㅜ ㅇ ㅠ")
-    val words = mapOf(0 to "ㅎ ㅗ ㅇ ㅜ", 1 to "ㅇ ㅡ ㅇ ㅟ", 2 to "ㄱ ㅠ ㄴ ㅡ", 3 to "ㅇ ㅜ ㅇ ㅠ")
+    var wordList = arrayOf(arrayOf("ㄴ ㅏ ㅂ ㅣ"), arrayOf("ㄴ ㅏ ㅁ ㅜ"), arrayOf("ㄱ ㅠ ㄴ ㅏ"), arrayOf("ㅇ ㅜ ㅇ ㅠ", "ㅎ ㅗ ㅇ ㅜ", "ㄱ ㅠ ㄴ ㅡ", "ㅇ ㅜ ㅇ ㅠ"))
 
     lateinit var firstJa:TextView
     lateinit var firstMo:TextView
@@ -53,8 +52,10 @@ class MakeWord : AppCompatActivity() {
     }
 
     fun findWordByCase(case: Int){
-        var str = words.get(case)
-        val jamojamo = str!!.split(" ")
+        var rnd = Random()
+        var size = wordList[case].size
+        var wordListNum = rnd.nextInt(size-1)
+        val jamojamo = wordList[case][wordListNum].split(" ")
 
         var type = 0 //0 :ja 1:mo
         wordNum[0] = checkIndex(jamojamo[0], 0)
@@ -245,7 +246,7 @@ class MakeWord : AppCompatActivity() {
 
         //버튼 보여주기
         
-        var type=0
+        var type=0  // 짝수 : 자음 , 홀수 : 모음
         setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
 
         //올바른 버튼 선택 --> 색 진하게, type 따라 자음 모음 버튼 바꾸기
