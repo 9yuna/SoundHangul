@@ -37,8 +37,8 @@ class JaFragment4 : Fragment() {
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Toast.makeText(activity, "이 언어는 지원하지 않습니다.", Toast.LENGTH_SHORT).show()
                 } else {
-                    tts!!.setPitch(0.7f)
-                    tts!!.setSpeechRate(1.2f)
+                    tts!!.setPitch(0.6f)
+                    tts!!.setSpeechRate(1.0f)
                 }
             }
         })
