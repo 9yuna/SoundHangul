@@ -49,7 +49,7 @@ class MakeWord : AppCompatActivity() {
     fun findWordByCase(case: Int){
         var rnd = Random()
         var size = wordList[case].size
-        var wordListNum = rnd.nextInt(size-1)
+        var wordListNum = rnd.nextInt(size)
         val jamojamo = wordList[case][wordListNum].split(" ")
 
         var type = 0 //0 :ja 1:mo
@@ -80,7 +80,7 @@ class MakeWord : AppCompatActivity() {
         gunuJa1.setVisibility(View.GONE)
         gunuMo1.setVisibility(View.GONE)
         gunuJa2.setVisibility(View.GONE)
-        gunaMo2.setVisibility(View.GONE)
+        gunuMo2.setVisibility(View.GONE)
 
         when(case){
             0 -> {
@@ -117,7 +117,7 @@ class MakeWord : AppCompatActivity() {
                 gunuJa1.setVisibility(View.VISIBLE)
                 gunuMo1.setVisibility(View.VISIBLE)
                 gunuJa2.setVisibility(View.VISIBLE)
-                gunaMo2.setVisibility(View.VISIBLE)
+                gunuMo2.setVisibility(View.VISIBLE)
                 firstJa = gunuJa1
                 firstMo = gunuMo1
                 secondJa = gunuJa2
