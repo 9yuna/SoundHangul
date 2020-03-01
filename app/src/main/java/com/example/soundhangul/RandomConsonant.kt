@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import kotlinx.android.synthetic.main.activity_random_consonant.*
 import java.util.*
 
 class RandomConsonant : AppCompatActivity() {
@@ -75,14 +77,84 @@ class RandomConsonant : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sequence_consonant)
+        setContentView(R.layout.activity_random_consonant)
 
-        var btn1 = findViewById(R.id.button) as Button
-        var btn2 = findViewById(R.id.button2) as Button
-        var btn3 = findViewById(R.id.button3) as Button
-        var btn4 = findViewById(R.id.button4) as Button
-        var bigJaum = findViewById(R.id.BigJaeum) as ImageView
-        var pronunciation = findViewById(R.id.Pronunciation) as TextView
+        val width = resources.displayMetrics.widthPixels
+        val height = resources.displayMetrics.heightPixels
+
+        //버튼 사이즈 조절
+        BigJaeum.setLayoutParams(ConstraintLayout.LayoutParams(width/4,height/3))
+        Pronunciation.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/4))
+        button.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/6))
+        button2.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/6))
+        button3.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/6))
+        button4.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/6))
+
+        //버튼 위치 조정
+        val BigJaeumParams = BigJaeum.layoutParams as ConstraintLayout.LayoutParams
+        BigJaeumParams.topToTop = R.id.randomConsonant
+        BigJaeumParams.topMargin = height/10
+        BigJaeumParams.startToStart = R.id.randomConsonant
+        BigJaeumParams.marginStart = width/5
+        BigJaeumParams.bottomToTop = R.id.button
+        BigJaeumParams.endToStart = R.id.Pronunciation
+        BigJaeumParams.marginEnd = width/13
+        BigJaeum.requestLayout()
+
+        val pronunciationParams = Pronunciation.layoutParams as ConstraintLayout.LayoutParams
+        pronunciationParams.topToTop = R.id.randomConsonant
+        pronunciationParams.topMargin = height/8
+        pronunciationParams.startToEnd = R.id.BigJaeum
+        pronunciationParams.marginStart = width/13
+        pronunciationParams.bottomToTop = R.id.button3
+        pronunciationParams.bottomMargin = height/13
+        pronunciationParams.endToEnd = R.id.randomConsonant
+        pronunciationParams.marginEnd = width/5
+        Pronunciation.requestLayout()
+
+        val buttonParams = button.layoutParams as ConstraintLayout.LayoutParams
+        buttonParams.topToBottom = R.id.BigJaeum
+        buttonParams.topMargin = height/10
+        buttonParams.startToStart = R.id.randomConsonant
+        buttonParams.marginStart = width/7
+        buttonParams.bottomToBottom = R.id.randomConsonant
+        buttonParams.bottomMargin = height/8
+        buttonParams.endToStart = R.id.button2
+        buttonParams.marginEnd = width/20
+        button.requestLayout()
+
+        val button2Params = button2.layoutParams as ConstraintLayout.LayoutParams
+        button2Params.topToBottom = R.id.BigJaeum
+        button2Params.topMargin = height/10
+        button2Params.startToEnd = R.id.button
+        button2Params.marginStart = width/20
+        button2Params.bottomToBottom = R.id.randomConsonant
+        button2Params.bottomMargin = height/8
+        button2Params.endToStart = R.id.button3
+        button2Params.marginEnd = width/20
+        button2.requestLayout()
+
+        val button3Params = button3.layoutParams as ConstraintLayout.LayoutParams
+        button3Params.topToBottom = R.id.BigJaeum
+        button3Params.topMargin = height/10
+        button3Params.startToEnd = R.id.button2
+        button3Params.marginStart = width/20
+        button3Params.bottomToBottom = R.id.randomConsonant
+        button3Params.bottomMargin = height/8
+        button3Params.endToStart = R.id.button4
+        button3Params.marginEnd = width/20
+        button3.requestLayout()
+
+        val button4Params = button4.layoutParams as ConstraintLayout.LayoutParams
+        button4Params.topToBottom = R.id.BigJaeum
+        button4Params.topMargin = height/10
+        button4Params.startToEnd = R.id.button3
+        button4Params.marginStart = width/20
+        button4Params.bottomToBottom = R.id.randomConsonant
+        button4Params.bottomMargin = height/8
+        button4Params.endToEnd = R.id.randomConsonant
+        button4Params.marginEnd = width/7
+        button4.requestLayout()
 
 
         var rnd = Random()
@@ -95,18 +167,18 @@ class RandomConsonant : AppCompatActivity() {
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Toast.makeText(this, "이 언어는 지원하지 않습니다.", Toast.LENGTH_SHORT).show()
                 } else {
-                    tts!!.setPitch(0.7f)
-                    tts!!.setSpeechRate(1.2f)
+                    tts!!.setPitch(0.6f)
+                    tts!!.setSpeechRate(1.0f)
                 }
             }
         })
 
         // 이미지랑 발음 보여주기
-        setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+        setNextJaum(BigJaeum, Pronunciation, button, button2, button3, button4, jaumNum)
         tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
         Log.d("### I: ", "$jaumNum")
         // 올바른 버튼 클릭시 다음 자음으로 넘어가기
-        btn1.setOnClickListener{
+        button.setOnClickListener{
             if(jaumNum == rnum[0]){
                 tts!!.speak(str[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextJaumNum = rnd.nextInt(14)
@@ -119,20 +191,20 @@ class RandomConsonant : AppCompatActivity() {
 
                 Log.d("### I(1): ", "$jaumNum")
                 Thread.sleep(1000L)
-                setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+                setNextJaum(BigJaeum, Pronunciation, button, button2, button3, button4, jaumNum)
                 Thread.sleep(1000L)
                 tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
                 Log.d("###not I(1): ", "$jaumNum")
-                btn1.setTextColor(Color.RED)
+                button.setTextColor(Color.RED)
                 tts!!.speak(str[rnum[0]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
-                    btn1.setTextColor(Color.BLACK)
+                    button.setTextColor(Color.BLACK)
                 }, 200)
             }
         }
 
-        btn2.setOnClickListener{
+        button2.setOnClickListener{
             if(jaumNum == rnum[1]){
                 tts!!.speak(str[rnum[1]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextJaumNum = rnd.nextInt(14)
@@ -144,19 +216,19 @@ class RandomConsonant : AppCompatActivity() {
                 jaumNum = nextJaumNum
                 Thread.sleep(1000L)
                 Log.d("### I(2): ", "$jaumNum")
-                setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+                setNextJaum(BigJaeum, Pronunciation, button, button2, button3, button4, jaumNum)
                 Thread.sleep(1000L)
                 tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
                 Log.d("###not I(2): ", "$jaumNum")
-                btn2.setTextColor(Color.RED)
+                button2.setTextColor(Color.RED)
                 tts!!.speak(str[rnum[1]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
-                    btn2.setTextColor(Color.BLACK)
+                    button2.setTextColor(Color.BLACK)
                 }, 200)
             }
         }
-        btn3.setOnClickListener{
+        button3.setOnClickListener{
             if(jaumNum == rnum[2]){
                 tts!!.speak(str[rnum[2]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextJaumNum = rnd.nextInt(14)
@@ -168,19 +240,19 @@ class RandomConsonant : AppCompatActivity() {
                 jaumNum = nextJaumNum
                 Thread.sleep(1000L)
                 Log.d("### I(3): ", "$jaumNum")
-                setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+                setNextJaum(BigJaeum, Pronunciation, button, button2, button3, button4, jaumNum)
                 Thread.sleep(1000L)
                 tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
                 Log.d("###not I(3): ", "$jaumNum")
-                btn3.setTextColor(Color.RED)
+                button3.setTextColor(Color.RED)
                 tts!!.speak(str[rnum[2]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
-                    btn3.setTextColor(Color.BLACK)
+                    button3.setTextColor(Color.BLACK)
                 }, 200)
             }
         }
-        btn4.setOnClickListener{
+        button4.setOnClickListener{
             if(jaumNum == rnum[3]){
                 tts!!.speak(str[rnum[3]], TextToSpeech.QUEUE_FLUSH, null,null)
                 nextJaumNum = rnd.nextInt(14)
@@ -192,15 +264,15 @@ class RandomConsonant : AppCompatActivity() {
                 jaumNum = nextJaumNum
                 Thread.sleep(1000L)
                 Log.d("### I(4): ", "$jaumNum")
-                setNextJaum(bigJaum, pronunciation, btn1, btn2, btn3, btn4, jaumNum)
+                setNextJaum(BigJaeum, Pronunciation, button, button2, button3, button4, jaumNum)
                 Thread.sleep(1000L)
                 tts!!.speak(str[jaumNum], TextToSpeech.QUEUE_FLUSH, null,null)
             }else{
                 Log.d("###not I(4): ", "$jaumNum")
-                btn4.setTextColor(Color.RED)
+                button4.setTextColor(Color.RED)
                 tts!!.speak(str[rnum[3]], TextToSpeech.QUEUE_FLUSH, null,null)
                 Handler().postDelayed({
-                    btn4.setTextColor(Color.BLACK)
+                    button4.setTextColor(Color.BLACK)
                 }, 200)
             }
         }

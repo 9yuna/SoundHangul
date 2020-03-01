@@ -1,102 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<TableLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tableLayout"
     tools:context=".SoundCard">
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="447dp"
-        android:layout_height="147dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/rightBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Button
+            android:id="@+id/paBtn0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가"
+            android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/paBtn0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="가"
-                android:textSize="40sp" />
+        <Button
+            android:id="@+id/paBtn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="갸"
+            android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/paBtn1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="갸"
-                android:textSize="40sp" />
+        <Button
+            android:id="@+id/paBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="거"
+            android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/paBtn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="거"
-                android:textSize="40sp" />
+        <Button
+            android:id="@+id/paBtn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="겨"
+            android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/paBtn3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="겨"
-                android:textSize="40sp" />
+        <Button
+            android:id="@+id/paBtn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="고"
+            android:textSize="40sp" />
+    </TableRow>
 
-            <Button
-                android:id="@+id/paBtn4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="고"
-                android:textSize="40sp" />
-        </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Button
+            android:id="@+id/paBtn5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="교"
+            android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/paBtn5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="교"
-                android:textSize="40sp" />
+        <Button
+            android:id="@+id/paBtn6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="구"
+            android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/paBtn6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="구"
-                android:textSize="40sp" />
+        <Button
+            android:id="@+id/paBtn7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="규"
+            android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/paBtn7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="규"
-                android:textSize="40sp" />
+        <Button
+            android:id="@+id/paBtn8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="그"
+            android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/paBtn8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="그"
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/paBtn9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기"
-                android:textSize="40sp" />
-        </TableRow>
-    </TableLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/paBtn9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기"
+            android:textSize="40sp" />
+    </TableRow>
+</TableLayout>

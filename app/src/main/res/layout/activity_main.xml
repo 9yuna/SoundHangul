@@ -4,58 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/consonant"
         android:layout_width="158dp"
         android:layout_height="100dp"
-        android:layout_marginTop="70dp"
         android:text="자음연습"
-        app:layout_constraintBottom_toTopOf="@+id/soundcard"
-        app:layout_constraintEnd_toStartOf="@+id/vowel"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/vowel" />
 
     <Button
         android:id="@+id/vowel"
         android:layout_width="158dp"
         android:layout_height="100dp"
-        android:layout_marginTop="70dp"
         android:text="모음연습"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/consonant"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintBottom_toTopOf="@+id/makeWord"
+        tools:layout_editor_absoluteX="573dp" />
 
     <Button
         android:id="@+id/soundcard"
         android:layout_width="158dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="64dp"
         android:text="한글 음운 듣기"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/makeWord"
+        tools:layout_editor_absoluteY="311dp" />
 
     <Button
         android:id="@+id/makeWord"
         android:layout_width="158dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="68dp"
         android:text="단어만들기"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.743"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="573dp"
+        tools:layout_editor_absoluteY="311dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

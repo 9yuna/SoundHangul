@@ -9,12 +9,8 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="447dp"
-        android:layout_height="147dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/rightBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
