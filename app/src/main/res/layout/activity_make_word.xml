@@ -6,11 +6,209 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    <TextView
+        android:id="@+id/ganaJa1"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="ㄱ"
+        android:textSize="200px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ganaMo1"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="ㅏ"
+        android:textSize="200px"
+        app:layout_constraintStart_toEndOf="@+id/ganaJa1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ganaJa2"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="ㄴ"
+        android:textSize="200px"
+        app:layout_constraintStart_toEndOf="@+id/ganaMo1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ganaMo2"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="ㅏ"
+        android:textSize="200px"
+        app:layout_constraintStart_toEndOf="@+id/ganaJa2"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ganuJa1"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="ㄱ"
+        android:textSize="200px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ganuMo1"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="ㅏ"
+        android:textSize="200px"
+        app:layout_constraintStart_toEndOf="@+id/ganuJa1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ganuJa2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:text="ㄴ"
+        android:textSize="200px"
+        app:layout_constraintStart_toEndOf="@+id/ganuMo1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ganuMo2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="104dp"
+        android:gravity="center"
+        android:text="ㅜ"
+        android:textSize="220px"
+        app:layout_constraintStart_toEndOf="@+id/ganuMo1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/gunaMo2"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="ㅏ"
+        android:textSize="200px"
+        app:layout_constraintStart_toEndOf="@+id/gunaJa2"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/gunaJa1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="ㄱ"
+        android:textSize="220px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/gunaJa2"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="ㄴ"
+        android:textSize="200px"
+        app:layout_constraintStart_toEndOf="@+id/gunaMo1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/gunaMo1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="104dp"
+        android:gravity="center"
+        android:text="ㅜ"
+        android:textSize="220px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/gunuJa2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:text="ㄴ"
+        android:textSize="200px"
+        app:layout_constraintStart_toEndOf="@+id/gunuMo1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/gunuMo2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="104dp"
+        android:gravity="center"
+        android:text="ㅜ"
+        android:textSize="220px"
+        app:layout_constraintStart_toEndOf="@+id/gunuMo1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/gunuJa1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="ㄱ"
+        android:textSize="220px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/gunuMo1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="104dp"
+        android:gravity="center"
+        android:text="ㅜ"
+        android:textSize="220px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button"
