@@ -126,6 +126,16 @@ class MakeWord : AppCompatActivity() {
         }
 
         findWordByCase(case)
+
+        //해당 자음 모음 확인하기
+        firstJa.setText(ja[wordNum[0]])
+        firstMo.setText(mo[wordNum[1]])
+        secondJa.setText(ja[wordNum[2]])
+        secondMo.setText(mo[wordNum[3]])
+        firstJa.setTextColor(Color.rgb(202, 204, 206))
+        firstMo.setTextColor(Color.rgb(202, 204, 206))
+        secondJa.setTextColor(Color.rgb(202, 204, 206))
+        secondMo.setTextColor(Color.rgb(202, 204, 206))
     }
 
     fun jaumRandomButton(hubo: Int){
@@ -225,20 +235,8 @@ class MakeWord : AppCompatActivity() {
 
         getRandomWord()
 
-        //해당 자음 모음 확인하기
-        firstJa.setText(ja[wordNum[0]])
-        firstMo.setText(mo[wordNum[1]])
-        secondJa.setText(ja[wordNum[2]])
-        secondMo.setText(mo[wordNum[3]])
-        firstJa.setTextColor(Color.rgb(202, 204, 206))
-        firstMo.setTextColor(Color.rgb(202, 204, 206))
-        secondJa.setTextColor(Color.rgb(202, 204, 206))
-        secondMo.setTextColor(Color.rgb(202, 204, 206))
-
-
         //버튼 보여주기
         var type=0 // 짝수 : 자음 , 홀수 : 모음
-        var cnt=0
 
         setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
 
@@ -254,12 +252,10 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                cnt += 1
 
                 Thread.sleep(1000L)
-                if(cnt == 4){
+                if(type == 4){
                     // 다음 단어
-                    cnt = 0
                     type = 0
                     getRandomWord()
                 }
@@ -287,12 +283,10 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                cnt += 1
 
                 Thread.sleep(1000L)
-                if(cnt == 4){
+                if(type == 4){
                     // 다음 단어
-                    cnt = 0
                     type = 0
                     getRandomWord()
                 }
@@ -320,12 +314,10 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                cnt += 1
 
                 Thread.sleep(1000L)
-                if(cnt == 4){
+                if(type == 4){
                     // 다음 단어
-                    cnt = 0
                     type = 0
                     getRandomWord()
                 }
@@ -353,12 +345,10 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                cnt += 1
 
                 Thread.sleep(1000L)
-                if(cnt == 4){
+                if(type == 4){
                     // 다음 단어
-                    cnt = 0
                     type = 0
                     getRandomWord()
                 }
@@ -386,12 +376,10 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                cnt += 1
 
                 Thread.sleep(1000L)
-                if(cnt == 4){
-                    // 다음 단어 
-                    cnt = 0
+                if(type == 4){
+                    // 다음 단어
                     type = 0
                     getRandomWord()
                 }
