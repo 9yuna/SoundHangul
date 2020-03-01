@@ -12,11 +12,6 @@ import java.lang.Thread.sleep
 
 import java.util.*
 
-// 0 : ㄴ ㅏ ㅂ ㅣ
-// 1 : ㄴ ㅏ ㅁ ㅜ
-// 2 : ㄱ ㅠ ㄴ ㅏ
-// 3 : ㅇ ㅜ ㅇ ㅠ
-
 class MakeWord : AppCompatActivity() {
     var rnum = intArrayOf(0, 0, 0, 0, 0)
     var wordNum = intArrayOf(0, 0, 0, 0)
@@ -24,6 +19,7 @@ class MakeWord : AppCompatActivity() {
     var mo = arrayOf("ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ","ㅛ","ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ", "ㅘ", "ㅙ", "ㅚ","ㅝ","ㅞ","ㅟ","ㅢ")
     var case=0
     var wordList = arrayOf(arrayOf("ㄴ ㅏ ㅂ ㅣ"), arrayOf("ㄴ ㅏ ㅁ ㅜ"), arrayOf("ㄱ ㅠ ㄴ ㅏ"), arrayOf("ㅇ ㅜ ㅇ ㅠ", "ㅎ ㅗ ㅇ ㅜ", "ㄱ ㅠ ㄴ ㅡ", "ㅇ ㅜ ㅇ ㅠ"))
+
 
     lateinit var firstJa:TextView
     lateinit var firstMo:TextView
@@ -50,7 +46,6 @@ class MakeWord : AppCompatActivity() {
         }
         return realIndex
     }
-
     fun findWordByCase(case: Int){
         var rnd = Random()
         var size = wordList[case].size
@@ -63,7 +58,6 @@ class MakeWord : AppCompatActivity() {
         wordNum[2] = checkIndex(jamojamo[2], 0)
         wordNum[3] = checkIndex(jamojamo[3], 1)
     }
-
     fun getRandomWord(){
         var rnd = Random()
         case = rnd.nextInt(4)
@@ -130,6 +124,8 @@ class MakeWord : AppCompatActivity() {
                 secondMo = gunaMo2
             }
         }
+
+        findWordByCase(case)
     }
 
     fun jaumRandomButton(hubo: Int){
@@ -216,11 +212,6 @@ class MakeWord : AppCompatActivity() {
         }
     }
 
-    fun setWordCaseRandom(){
-        var rnd = Random()
-        case = rnd.nextInt(4)
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -232,8 +223,9 @@ class MakeWord : AppCompatActivity() {
         var btn4 = findViewById<Button>(R.id.button4)
         var btn5 = findViewById<Button>(R.id.button5)
 
+        getRandomWord()
 
-//해당 자음 모음 확인하기
+        //해당 자음 모음 확인하기
         firstJa.setText(ja[wordNum[0]])
         firstMo.setText(mo[wordNum[1]])
         secondJa.setText(ja[wordNum[2]])
@@ -245,8 +237,9 @@ class MakeWord : AppCompatActivity() {
 
 
         //버튼 보여주기
-        
-        var type=0  // 짝수 : 자음 , 홀수 : 모음
+        var type=0 // 짝수 : 자음 , 홀수 : 모음
+        var cnt=0
+
         setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
 
         //올바른 버튼 선택 --> 색 진하게, type 따라 자음 모음 버튼 바꾸기
@@ -261,9 +254,15 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                //   wordIndex += 1
+                cnt += 1
 
                 Thread.sleep(1000L)
+                if(cnt == 4){
+                    // 다음 단어
+                    cnt = 0
+                    type = 0
+                    getRandomWord()
+                }
                 setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                 Log.d("type", type.toString())
                 Log.d("wordtype", wordNum[type].toString())
@@ -288,9 +287,15 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                //     wordIndex += 1
+                cnt += 1
 
                 Thread.sleep(1000L)
+                if(cnt == 4){
+                    // 다음 단어
+                    cnt = 0
+                    type = 0
+                    getRandomWord()
+                }
                 setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                 Log.d("type", type.toString())
                 Log.d("wordtype", wordNum[type].toString())
@@ -315,9 +320,15 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                //   wordIndex += 1
+                cnt += 1
 
                 Thread.sleep(1000L)
+                if(cnt == 4){
+                    // 다음 단어
+                    cnt = 0
+                    type = 0
+                    getRandomWord()
+                }
                 setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                 Log.d("type", type.toString())
                 Log.d("wordtype", wordNum[type].toString())
@@ -342,9 +353,15 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                //    wordIndex += 1
+                cnt += 1
 
                 Thread.sleep(1000L)
+                if(cnt == 4){
+                    // 다음 단어
+                    cnt = 0
+                    type = 0
+                    getRandomWord()
+                }
                 setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                 Log.d("type", type.toString())
                 Log.d("wordtype", wordNum[type].toString())
@@ -369,9 +386,15 @@ class MakeWord : AppCompatActivity() {
                     if (type == 3) secondMo.setTextColor(Color.BLUE)
                 }
                 type += 1
-                //      wordIndex += 1
+                cnt += 1
 
                 Thread.sleep(1000L)
+                if(cnt == 4){
+                    // 다음 단어 
+                    cnt = 0
+                    type = 0
+                    getRandomWord()
+                }
                 setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                 Log.d("type", type.toString())
                 Log.d("wordtype", wordNum[type].toString())
