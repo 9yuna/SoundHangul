@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_make_word.*
+import java.lang.Thread.sleep
 
 import java.util.*
 
+// 0 : ㄴ ㅏ ㅂ ㅣ
+// 1 : ㄴ ㅏ ㅁ ㅜ
+// 2 : ㄱ ㅠ ㄴ ㅏ
+// 3 : ㅇ ㅜ ㅇ ㅠ
+
 class MakeWord : AppCompatActivity() {
-    //{'나', '비', ㅓㅏㅑ'' 나비 나라 가나 아이
-    var jaWord = arrayOf("ㄴ", "ㅂ", "ㅁ", "ㄹ")
-    var moWord = arrayOf("ㅏ", "ㅣ", "ㅣ", "ㅐ" )
     var rnum = intArrayOf(0, 0, 0, 0, 0)
-    var word = intArrayOf(0, 0, 0, 0, 0)
+    var wordNum = intArrayOf(0, 0, 0, 0)
     var ja = arrayOf("ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ")
     var mo = arrayOf("ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ","ㅛ","ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ", "ㅘ", "ㅙ", "ㅚ","ㅝ","ㅞ","ㅟ","ㅢ")
+    var case=0
 
     fun jaumRandomButton(hubo: Int){
         var rnd = Random()
@@ -85,28 +89,6 @@ class MakeWord : AppCompatActivity() {
             rnum[r] = hubo
         }
     }
-
-    fun checkIndex(jamo: String, type:Int): Int{
-        var realIndex=0
-
-        if(type % 2 ==0){ // ja
-            for(i in 0..ja.size-1){
-                if(ja[i] == jamo){
-                    realIndex = i
-                    break
-                }
-            }
-        }else{ //mo
-            for(j in 0..mo.size-1){
-                if(mo[j] == jamo){
-                    realIndex = j
-                    break;
-                }
-            }
-        }
-        return realIndex
-    }
-
     fun setButton(type: Int, btn1 : Button, btn2 : Button, btn3 : Button, btn4 : Button, btn5:Button, wordIndex: Int){
         if(type %2 == 0){
             jaumRandomButton(wordIndex)
@@ -124,6 +106,14 @@ class MakeWord : AppCompatActivity() {
             btn5.setText(mo[rnum[4]])
         }
     }
+    fun setFragRandom(){
+        var rnd = Random()
+        case = rnd.nextInt(4)
+    }
+
+    fun getWord(data: IntArray){
+        wordNum = data
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,36 +125,34 @@ class MakeWord : AppCompatActivity() {
         var btn4 = findViewById<Button>(R.id.button4)
         var btn5 = findViewById<Button>(R.id.button5)
 
-        var firstJa = findViewById<TextView>(R.id.ja1)
-        var firstMo = findViewById<TextView>(R.id.mo1)
-        var secondJa = findViewById<TextView>(R.id.ja2)
-        var secondMo = findViewById<TextView>(R.id.mo2)
+        val adap =  WordCaseAdapter(supportFragmentManager)
+        view_pager2.adapter = adap
+        setFragRandom()
+        view_pager2.setCurrentItem(case)  // Apater 바꾸기
+
+        for(i in 0..3)
+            println(wordNum[i])
+
+
+
+    }
+/*
+    fun tmp(){
+
 
         //해당 자음 모음 확인하기
-        var type = 0
-        word[0] = checkIndex(jaWord[0], 0)
-        word[1] = checkIndex(moWord[0], 1)
-        word[2] = checkIndex(jaWord[1], 0)
-        word[3] = checkIndex(moWord[1], 1)
 
-        //회색 글씨 띄우기
-        firstJa.setText(ja[word[0]])
-        firstMo.setText(mo[word[1]])
-        secondJa.setText(ja[word[2]])
-        secondMo.setText(mo[word[3]])
-        firstJa.setTextColor(Color.rgb(202,204,206))
-        firstMo.setTextColor(Color.rgb(202,204,206))
-        secondJa.setTextColor(Color.rgb(202,204,206))
-        secondMo.setTextColor(Color.rgb(202,204,206))
+
+
 
         //버튼 보여주기
        // var wordIndex = 0
-        setButton(type, btn1, btn2, btn3, btn4, btn5, word[type])
+        setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
 
             //올바른 버튼 선택 --> 색 진하게, type 따라 자음 모음 버튼 바꾸기
             //아닌 버튼 --> 버튼 빨갛게 깜빡
             btn1.setOnClickListener{
-                if(word[type] == rnum[0]){
+                if(wordNum[type] == rnum[0]){
                     if(type % 2 ==0) {
                         if (type == 0) firstJa.setTextColor(Color.BLUE)
                         if (type == 2) secondJa.setTextColor(Color.BLUE)
@@ -176,9 +164,9 @@ class MakeWord : AppCompatActivity() {
                  //   wordIndex += 1
 
                     Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, word[type])
+                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                     Log.d("type", type.toString())
-                    Log.d("wordtype", word[type].toString())
+                    Log.d("wordtype", wordNum[type].toString())
                     //Thread.sleep(1000L)
                     //ttsClient?.play(str[jaumNum])
                 }else{
@@ -191,7 +179,7 @@ class MakeWord : AppCompatActivity() {
             }
 
             btn2.setOnClickListener{
-                if(word[type] == rnum[1]){
+                if(wordNum[type] == rnum[1]){
                     if(type % 2 ==0) {
                         if (type == 0) firstJa.setTextColor(Color.BLUE)
                         if (type == 2) secondJa.setTextColor(Color.BLUE)
@@ -203,9 +191,9 @@ class MakeWord : AppCompatActivity() {
                //     wordIndex += 1
 
                     Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, word[type])
+                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                     Log.d("type", type.toString())
-                    Log.d("wordtype", word[type].toString())
+                    Log.d("wordtype", wordNum[type].toString())
                     //Thread.sleep(1000L)
                     //ttsClient?.play(str[jaumNum])
                 }else{
@@ -218,7 +206,7 @@ class MakeWord : AppCompatActivity() {
             }
 
             btn3.setOnClickListener{
-                if(word[type] == rnum[2]){
+                if(wordNum[type] == rnum[2]){
                     if(type % 2 ==0) {
                         if (type == 0) firstJa.setTextColor(Color.BLUE)
                         if (type == 2) secondJa.setTextColor(Color.BLUE)
@@ -230,9 +218,9 @@ class MakeWord : AppCompatActivity() {
                  //   wordIndex += 1
 
                     Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, word[type])
+                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                     Log.d("type", type.toString())
-                    Log.d("wordtype", word[type].toString())
+                    Log.d("wordtype", wordNum[type].toString())
                     //Thread.sleep(1000L)
                     //ttsClient?.play(str[jaumNum])
                 }else{
@@ -245,7 +233,7 @@ class MakeWord : AppCompatActivity() {
             }
 
             btn4.setOnClickListener{
-                if(word[type] == rnum[3]){
+                if(wordNum[type] == rnum[3]){
                     if(type % 2 ==0) {
                         if (type == 0) firstJa.setTextColor(Color.BLUE)
                         if (type == 2) secondJa.setTextColor(Color.BLUE)
@@ -257,9 +245,9 @@ class MakeWord : AppCompatActivity() {
                 //    wordIndex += 1
 
                     Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, word[type])
+                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                     Log.d("type", type.toString())
-                    Log.d("wordtype", word[type].toString())
+                    Log.d("wordtype", wordNum[type].toString())
                     //Thread.sleep(1000L)
                     //ttsClient?.play(str[jaumNum])
                 }else{
@@ -272,7 +260,7 @@ class MakeWord : AppCompatActivity() {
             }
 
             btn5.setOnClickListener{
-                if(word[type] == rnum[4]){
+                if(wordNum[type] == rnum[4]){
                     if(type % 2 ==0) {
                         if (type == 0) firstJa.setTextColor(Color.BLUE)
                         if (type == 2) secondJa.setTextColor(Color.BLUE)
@@ -284,9 +272,9 @@ class MakeWord : AppCompatActivity() {
                         //      wordIndex += 1
 
                     Thread.sleep(1000L)
-                    setButton(type, btn1, btn2, btn3, btn4, btn5, word[type])
+                    setButton(type, btn1, btn2, btn3, btn4, btn5, wordNum[type])
                     Log.d("type", type.toString())
-                    Log.d("wordtype", word[type].toString())
+                    Log.d("wordtype", wordNum[type].toString())
                     //Thread.sleep(1000L)
                     //ttsClient?.play(str[jaumNum])
                 }else{
@@ -298,5 +286,5 @@ class MakeWord : AppCompatActivity() {
                 }
             }
     }
-
+*/
 }

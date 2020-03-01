@@ -6,6 +6,12 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
     <Button
         android:id="@+id/button"
         android:layout_width="102dp"
@@ -76,55 +82,5 @@ android:orientation="vertical">
     android:orientation="horizontal"
     app:layout_constraintGuide_begin="20dp" />
 
-    <TextView
-        android:id="@+id/ja1"
-        android:layout_width="102dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:text="ㄱ"
-        android:textSize="200px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/ja2"
-        android:layout_width="102dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:text="ㄴ"
-        android:textSize="200px"
-        app:layout_constraintStart_toEndOf="@+id/mo1"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/mo2"
-        android:layout_width="102dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:text="ㅏ"
-        android:textSize="200px"
-        app:layout_constraintStart_toEndOf="@+id/ja2"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/mo1"
-        android:layout_width="102dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:text="ㅏ"
-        android:textSize="200px"
-        app:layout_constraintStart_toEndOf="@+id/ja1"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

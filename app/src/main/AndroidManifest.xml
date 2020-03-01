@@ -29,6 +29,7 @@
         <activity android:name=".SoundCard"></activity>
         <activity android:name=".MakeWord"></activity>
         <activity android:name=".ConsonantPagerAdapter"></activity>
+        <activity android:name=".WordCaseAdapter"></activity>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="5f6f96de578e95353829c154e0c4c86c" />
