@@ -2,10 +2,12 @@ package com.example.soundhangul
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_make_word.*
 import java.lang.Thread.sleep
@@ -18,8 +20,9 @@ class MakeWord : AppCompatActivity() {
     var ja = arrayOf("ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ")
     var mo = arrayOf("ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ","ㅛ","ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ", "ㅘ", "ㅙ", "ㅚ","ㅝ","ㅞ","ㅟ","ㅢ")
     var case=0
-    var wordList = arrayOf(arrayOf("ㄴ ㅏ ㅂ ㅣ"), arrayOf("ㄴ ㅏ ㅁ ㅜ"), arrayOf("ㄱ ㅠ ㄴ ㅏ"), arrayOf("ㅇ ㅜ ㅇ ㅠ", "ㅎ ㅗ ㅇ ㅜ", "ㄱ ㅠ ㄴ ㅡ", "ㅇ ㅜ ㅇ ㅠ"))
-
+    var wordList = arrayOf(arrayOf("ㄴ ㅏ ㅂ ㅣ 나비", "ㅅ ㅏ ㅈ ㅏ 사자"), arrayOf("ㄴ ㅏ ㅁ ㅜ 나무", "ㅇ ㅕ ㅇ ㅜ 여우", "ㅋ ㅏ ㄷ ㅡ 카드"), arrayOf("ㄱ ㅡ ㄴ ㅔ 그네", "ㅂ ㅗ ㄹ ㅏ 보라", "ㅇ ㅗ ㅇ ㅣ 오이"), arrayOf("ㅇ ㅜ ㅇ ㅠ 우유", "ㅎ ㅗ ㅇ ㅜ 호우", "ㅍ ㅗ ㄷ ㅗ 포도"))
+    var tts: TextToSpeech? = null
+    var wordTTS: String = ""
 
     lateinit var firstJa:TextView
     lateinit var firstMo:TextView
@@ -52,11 +55,12 @@ class MakeWord : AppCompatActivity() {
         var wordListNum = rnd.nextInt(size)
         val jamojamo = wordList[case][wordListNum].split(" ")
 
-        var type = 0 //0 :ja 1:mo
         wordNum[0] = checkIndex(jamojamo[0], 0)
         wordNum[1] = checkIndex(jamojamo[1], 1)
         wordNum[2] = checkIndex(jamojamo[2], 0)
         wordNum[3] = checkIndex(jamojamo[3], 1)
+        wordTTS = jamojamo[4]
+        Log.d("findWordByCase WordNum",wordNum[0].toString()+wordNum[1].toString()+wordNum[2].toString()+wordNum[3].toString())
     }
     fun getRandomWord(){
         var rnd = Random()
@@ -121,7 +125,7 @@ class MakeWord : AppCompatActivity() {
                 firstJa = gunuJa1
                 firstMo = gunuMo1
                 secondJa = gunuJa2
-                secondMo = gunaMo2
+                secondMo = gunuMo2
             }
         }
 
@@ -140,8 +144,8 @@ class MakeWord : AppCompatActivity() {
 
     fun jaumRandomButton(hubo: Int){
         var rnd = Random()
-
-        var cnt:Int =0
+        Log.d("jaumRandomButton hubo",hubo.toString())
+        var cnt:Int = 0
         var isSame = false
         var yesJa = false
 
@@ -203,6 +207,8 @@ class MakeWord : AppCompatActivity() {
             var r = rnd.nextInt(5)
             rnum[r] = hubo
         }
+        Log.d("yesMo: ", "$yesMo")
+        Log.d("isSame: ", "$isSame")
     }
     fun setButton(type: Int, btn1 : Button, btn2 : Button, btn3 : Button, btn4 : Button, btn5:Button, wordIndex: Int){
         if(type %2 == 0){
@@ -211,14 +217,14 @@ class MakeWord : AppCompatActivity() {
             btn2.text = ja[rnum[1]]
             btn3.text = ja[rnum[2]]
             btn4.text = ja[rnum[3]]
-            btn5.setText(ja[rnum[4]])
+            btn5.text = ja[rnum[4]]
         }else{
             moumRandomButton(wordIndex)
             btn1.text = mo[rnum[0]]
             btn2.text = mo[rnum[1]]
             btn3.text = mo[rnum[2]]
             btn4.text = mo[rnum[3]]
-            btn5.setText(mo[rnum[4]])
+            btn5.text = mo[rnum[4]]
         }
     }
 
@@ -233,7 +239,20 @@ class MakeWord : AppCompatActivity() {
         var btn4 = findViewById<Button>(R.id.button4)
         var btn5 = findViewById<Button>(R.id.button5)
 
+        tts = TextToSpeech(this, TextToSpeech.OnInitListener{
+            if(it == TextToSpeech.SUCCESS) {
+                val result: Int = tts!!.setLanguage(Locale.KOREA)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, "이 언어는 지원하지 않습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    tts!!.setPitch(0.6f)
+                    tts!!.setSpeechRate(1.0f)
+                }
+            }
+        })
+
         getRandomWord()
+
 
         //버튼 보여주기
         var type=0 // 짝수 : 자음 , 홀수 : 모음
@@ -245,16 +264,31 @@ class MakeWord : AppCompatActivity() {
         btn1.setOnClickListener {
             if (wordNum[type] == rnum[0]) {
                 if (type % 2 == 0) {
-                    if (type == 0) firstJa.setTextColor(Color.BLUE)
-                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                    if (type == 0){
+                        tts!!.speak(firstJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstJa.setTextColor(Color.BLUE)
+                    }
+                    if (type == 2){
+                        tts!!.speak(secondJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondJa.setTextColor(Color.BLUE)
+                    }
                 } else {
-                    if (type == 1) firstMo.setTextColor(Color.BLUE)
-                    if (type == 3) secondMo.setTextColor(Color.BLUE)
+                    if (type == 1){
+                        tts!!.speak(firstMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstMo.setTextColor(Color.BLUE)
+                    }
+                    if (type == 3){
+                        tts!!.speak(secondMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondMo.setTextColor(Color.BLUE)
+                    }
                 }
                 type += 1
 
                 Thread.sleep(1000L)
                 if(type == 4){
+                    Log.d("Button", wordTTS)
+                    tts!!.speak(wordTTS, TextToSpeech.QUEUE_FLUSH,null,null)
+                    Thread.sleep(1000L)
                     // 다음 단어
                     type = 0
                     getRandomWord()
@@ -276,16 +310,31 @@ class MakeWord : AppCompatActivity() {
         btn2.setOnClickListener {
             if (wordNum[type] == rnum[1]) {
                 if (type % 2 == 0) {
-                    if (type == 0) firstJa.setTextColor(Color.BLUE)
-                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                    if (type == 0){
+                        tts!!.speak(firstJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstJa.setTextColor(Color.BLUE)
+                    }
+                    if (type == 2){
+                        tts!!.speak(secondJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondJa.setTextColor(Color.BLUE)
+                    }
                 } else {
-                    if (type == 1) firstMo.setTextColor(Color.BLUE)
-                    if (type == 3) secondMo.setTextColor(Color.BLUE)
+                    if (type == 1){
+                        tts!!.speak(firstMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstMo.setTextColor(Color.BLUE)
+                    }
+                    if (type == 3){
+                        tts!!.speak(secondMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondMo.setTextColor(Color.BLUE)
+                    }
                 }
                 type += 1
 
                 Thread.sleep(1000L)
                 if(type == 4){
+                    Log.d("Button", wordTTS)
+                    tts!!.speak(wordTTS, TextToSpeech.QUEUE_FLUSH,null,null)
+                    Thread.sleep(1000L)
                     // 다음 단어
                     type = 0
                     getRandomWord()
@@ -307,16 +356,31 @@ class MakeWord : AppCompatActivity() {
         btn3.setOnClickListener {
             if (wordNum[type] == rnum[2]) {
                 if (type % 2 == 0) {
-                    if (type == 0) firstJa.setTextColor(Color.BLUE)
-                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                    if (type == 0){
+                        tts!!.speak(firstJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstJa.setTextColor(Color.BLUE)
+                    }
+                    if (type == 2){
+                        tts!!.speak(secondJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondJa.setTextColor(Color.BLUE)
+                    }
                 } else {
-                    if (type == 1) firstMo.setTextColor(Color.BLUE)
-                    if (type == 3) secondMo.setTextColor(Color.BLUE)
+                    if (type == 1){
+                        tts!!.speak(firstMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstMo.setTextColor(Color.BLUE)
+                    }
+                    if (type == 3){
+                        tts!!.speak(secondMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondMo.setTextColor(Color.BLUE)
+                    }
                 }
                 type += 1
 
                 Thread.sleep(1000L)
                 if(type == 4){
+                    Log.d("Button", wordTTS)
+                    tts!!.speak(wordTTS, TextToSpeech.QUEUE_FLUSH,null,null)
+                    Thread.sleep(1000L)
                     // 다음 단어
                     type = 0
                     getRandomWord()
@@ -338,16 +402,31 @@ class MakeWord : AppCompatActivity() {
         btn4.setOnClickListener {
             if (wordNum[type] == rnum[3]) {
                 if (type % 2 == 0) {
-                    if (type == 0) firstJa.setTextColor(Color.BLUE)
-                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                    if (type == 0){
+                        tts!!.speak(firstJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstJa.setTextColor(Color.BLUE)
+                    }
+                    if (type == 2){
+                        tts!!.speak(secondJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondJa.setTextColor(Color.BLUE)
+                    }
                 } else {
-                    if (type == 1) firstMo.setTextColor(Color.BLUE)
-                    if (type == 3) secondMo.setTextColor(Color.BLUE)
+                    if (type == 1){
+                        tts!!.speak(firstMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstMo.setTextColor(Color.BLUE)
+                    }
+                    if (type == 3){
+                        tts!!.speak(secondMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondMo.setTextColor(Color.BLUE)
+                    }
                 }
                 type += 1
 
                 Thread.sleep(1000L)
                 if(type == 4){
+                    Log.d("Button", wordTTS)
+                    tts!!.speak(wordTTS, TextToSpeech.QUEUE_FLUSH,null,null)
+                    Thread.sleep(1000L)
                     // 다음 단어
                     type = 0
                     getRandomWord()
@@ -369,16 +448,31 @@ class MakeWord : AppCompatActivity() {
         btn5.setOnClickListener {
             if (wordNum[type] == rnum[4]) {
                 if (type % 2 == 0) {
-                    if (type == 0) firstJa.setTextColor(Color.BLUE)
-                    if (type == 2) secondJa.setTextColor(Color.BLUE)
+                    if (type == 0){
+                        tts!!.speak(firstJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstJa.setTextColor(Color.BLUE)
+                    }
+                    if (type == 2){
+                        tts!!.speak(secondJa.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondJa.setTextColor(Color.BLUE)
+                    }
                 } else {
-                    if (type == 1) firstMo.setTextColor(Color.BLUE)
-                    if (type == 3) secondMo.setTextColor(Color.BLUE)
+                    if (type == 1){
+                        tts!!.speak(firstMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        firstMo.setTextColor(Color.BLUE)
+                    }
+                    if (type == 3){
+                        tts!!.speak(secondMo.text.toString(), TextToSpeech.QUEUE_FLUSH, null,null)
+                        secondMo.setTextColor(Color.BLUE)
+                    }
                 }
                 type += 1
 
                 Thread.sleep(1000L)
                 if(type == 4){
+                    Log.d("Button", wordTTS)
+                    tts!!.speak(wordTTS, TextToSpeech.QUEUE_FLUSH,null,null)
+                    Thread.sleep(1000L)
                     // 다음 단어
                     type = 0
                     getRandomWord()
