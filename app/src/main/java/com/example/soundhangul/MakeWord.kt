@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.activity_make_word.*
 import java.lang.Thread.sleep
 
@@ -145,6 +146,7 @@ class MakeWord : AppCompatActivity() {
     fun jaumRandomButton(hubo: Int){
         var rnd = Random()
         Log.d("jaumRandomButton hubo",hubo.toString())
+
         var cnt:Int = 0
         var isSame = false
         var yesJa = false
@@ -152,11 +154,13 @@ class MakeWord : AppCompatActivity() {
         while(true){
             if(cnt==5) break
             rnum[cnt] = rnd.nextInt(14)
-            if(rnum[cnt] == hubo) yesJa = true
+            if(rnum[cnt] == hubo){
+                yesJa = true
+                Log.d("rnum[cnt] == hubo", cnt.toString())
+            }
 
             for (j: Int in 0..cnt-1) {
                 if (rnum[cnt] == rnum[j]) {
-                    cnt--
                     isSame = true
                     break
                 }
@@ -171,6 +175,7 @@ class MakeWord : AppCompatActivity() {
         if(yesJa == false){
             var r = rnd.nextInt(5)
             rnum[r] = hubo
+            Log.d("yesJa == false ", r.toString() + " "+hubo.toString())
         }
 
         Log.d("yesJa: ", "$yesJa")
@@ -179,6 +184,7 @@ class MakeWord : AppCompatActivity() {
     }
     fun moumRandomButton(hubo: Int){
         var rnd = Random()
+        Log.d("moumRandomButton hubo",hubo.toString())
 
         var cnt:Int = 0
         var isSame = false
@@ -187,11 +193,12 @@ class MakeWord : AppCompatActivity() {
         while(true){
             if(cnt==5) break
             rnum[cnt] = rnd.nextInt(20)
-            if(rnum[cnt] == hubo) yesMo = true
-
+            if(rnum[cnt] == hubo) {
+                yesMo = true
+                Log.d("rnum[cnt] == hubo", cnt.toString())
+            }
             for (j: Int in 0..cnt-1) {
                 if (rnum[cnt] == rnum[j]) {
-                    cnt--
                     isSame = true
                     break
                 }
@@ -206,6 +213,7 @@ class MakeWord : AppCompatActivity() {
         if(yesMo == false){
             var r = rnd.nextInt(5)
             rnum[r] = hubo
+            Log.d("yesMo == false ", r.toString() + " "+hubo.toString())
         }
         Log.d("yesMo: ", "$yesMo")
         Log.d("isSame: ", "$isSame")
@@ -213,6 +221,7 @@ class MakeWord : AppCompatActivity() {
     fun setButton(type: Int, btn1 : Button, btn2 : Button, btn3 : Button, btn4 : Button, btn5:Button, wordIndex: Int){
         if(type %2 == 0){
             jaumRandomButton(wordIndex)
+            Log.d("setButton 자음", rnum[0].toString()+ " " + rnum[1].toString()+ " "+rnum[2].toString()+ " "+rnum[3].toString()+ " "+rnum[4].toString())
             btn1.text = ja[rnum[0]]
             btn2.text = ja[rnum[1]]
             btn3.text = ja[rnum[2]]
@@ -220,6 +229,7 @@ class MakeWord : AppCompatActivity() {
             btn5.text = ja[rnum[4]]
         }else{
             moumRandomButton(wordIndex)
+            Log.d("setButton 모음", rnum[0].toString()+ " " + rnum[1].toString()+ " "+rnum[2].toString()+ " "+rnum[3].toString()+ " "+rnum[4].toString())
             btn1.text = mo[rnum[0]]
             btn2.text = mo[rnum[1]]
             btn3.text = mo[rnum[2]]
@@ -233,11 +243,20 @@ class MakeWord : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_make_word)
 
-        var btn1 = findViewById<Button>(R.id.button)
-        var btn2 = findViewById<Button>(R.id.button2)
-        var btn3 = findViewById<Button>(R.id.button3)
-        var btn4 = findViewById<Button>(R.id.button4)
-        var btn5 = findViewById<Button>(R.id.button5)
+        val width = resources.displayMetrics.widthPixels
+        val height = resources.displayMetrics.heightPixels
+
+
+/*        ganaJa1.setLayoutParams(ConstraintLayout.LayoutParams(width/6,height/4))
+        ganaJa2.setLayoutParams(ConstraintLayout.LayoutParams(width/6,height/4))
+        ganaMo1.setLayoutParams(ConstraintLayout.LayoutParams(width/8,height/3))
+        ganaMo2.setLayoutParams(ConstraintLayout.LayoutParams(width/8,height/3))
+
+        btn1.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/5))
+        btn2.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/5))
+        btn3.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/5))
+        btn4.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/5))
+        btn5.setLayoutParams(ConstraintLayout.LayoutParams(width/7,height/5))*/
 
         tts = TextToSpeech(this, TextToSpeech.OnInitListener{
             if(it == TextToSpeech.SUCCESS) {

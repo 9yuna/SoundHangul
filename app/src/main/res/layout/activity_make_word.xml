@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/ganaJa1"
@@ -211,7 +212,7 @@ android:orientation="vertical">
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn1"
         android:layout_width="102dp"
         android:layout_height="98dp"
         android:layout_marginStart="10dp"
@@ -220,12 +221,12 @@ android:orientation="vertical">
         android:text="Button"
         android:textSize="120px"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button2"
+        app:layout_constraintEnd_toStartOf="@id/btn2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn2"
         android:layout_width="102dp"
         android:layout_height="98dp"
         android:layout_marginEnd="15dp"
@@ -233,24 +234,11 @@ android:orientation="vertical">
         android:text="Button"
         android:textSize="120px"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        app:layout_constraintEnd_toStartOf="@+id/btn3"
+        app:layout_constraintStart_toEndOf="@+id/btn1" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="102dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="44dp"
-        android:text="Button"
-        android:textSize="120px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintStart_toEndOf="@+id/button2" />
-
-    <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn3"
         android:layout_width="102dp"
         android:layout_height="98dp"
         android:layout_marginStart="15dp"
@@ -259,11 +247,24 @@ android:orientation="vertical">
         android:text="Button"
         android:textSize="120px"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintStart_toEndOf="@+id/button3" />
+        app:layout_constraintEnd_toStartOf="@+id/btn4"
+        app:layout_constraintStart_toEndOf="@+id/btn2" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btn4"
+        android:layout_width="102dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="44dp"
+        android:text="Button"
+        android:textSize="120px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn5"
+        app:layout_constraintStart_toEndOf="@+id/btn3" />
+
+    <Button
+        android:id="@+id/btn5"
         android:layout_width="102dp"
         android:layout_height="98dp"
         android:layout_marginEnd="10dp"
@@ -272,13 +273,6 @@ android:orientation="vertical">
         android:textSize="120px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_begin="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
