@@ -93,9 +93,9 @@ class SequenceConsonant : AppCompatActivity() {
 
         //버튼 위치 조정
         val BigJaeumParams = BigJaeum.layoutParams as ConstraintLayout.LayoutParams
-        BigJaeumParams.topToTop = R.id.randomConsonant
+        BigJaeumParams.topToTop = R.id.sequenceConsonant
         BigJaeumParams.topMargin = height/10
-        BigJaeumParams.startToStart = R.id.randomConsonant
+        BigJaeumParams.startToStart = R.id.sequenceConsonant
         BigJaeumParams.marginStart = width/5
         BigJaeumParams.bottomToTop = R.id.button
         BigJaeumParams.endToStart = R.id.Pronunciation
@@ -103,22 +103,22 @@ class SequenceConsonant : AppCompatActivity() {
         BigJaeum.requestLayout()
 
         val pronunciationParams = Pronunciation.layoutParams as ConstraintLayout.LayoutParams
-        pronunciationParams.topToTop = R.id.randomConsonant
+        pronunciationParams.topToTop = R.id.sequenceConsonant
         pronunciationParams.topMargin = height/8
         pronunciationParams.startToEnd = R.id.BigJaeum
         pronunciationParams.marginStart = width/13
         pronunciationParams.bottomToTop = R.id.button3
         pronunciationParams.bottomMargin = height/13
-        pronunciationParams.endToEnd = R.id.randomConsonant
+        pronunciationParams.endToEnd = R.id.sequenceConsonant
         pronunciationParams.marginEnd = width/5
         Pronunciation.requestLayout()
 
         val buttonParams = button.layoutParams as ConstraintLayout.LayoutParams
         buttonParams.topToBottom = R.id.BigJaeum
         buttonParams.topMargin = height/10
-        buttonParams.startToStart = R.id.randomConsonant
+        buttonParams.startToStart = R.id.sequenceConsonant
         buttonParams.marginStart = width/7
-        buttonParams.bottomToBottom = R.id.randomConsonant
+        buttonParams.bottomToBottom = R.id.sequenceConsonant
         buttonParams.bottomMargin = height/8
         buttonParams.endToStart = R.id.button2
         buttonParams.marginEnd = width/20
@@ -129,7 +129,7 @@ class SequenceConsonant : AppCompatActivity() {
         button2Params.topMargin = height/10
         button2Params.startToEnd = R.id.button
         button2Params.marginStart = width/20
-        button2Params.bottomToBottom = R.id.randomConsonant
+        button2Params.bottomToBottom = R.id.sequenceConsonant
         button2Params.bottomMargin = height/8
         button2Params.endToStart = R.id.button3
         button2Params.marginEnd = width/20
@@ -140,7 +140,7 @@ class SequenceConsonant : AppCompatActivity() {
         button3Params.topMargin = height/10
         button3Params.startToEnd = R.id.button2
         button3Params.marginStart = width/20
-        button3Params.bottomToBottom = R.id.randomConsonant
+        button3Params.bottomToBottom = R.id.sequenceConsonant
         button3Params.bottomMargin = height/8
         button3Params.endToStart = R.id.button4
         button3Params.marginEnd = width/20
@@ -151,9 +151,9 @@ class SequenceConsonant : AppCompatActivity() {
         button4Params.topMargin = height/10
         button4Params.startToEnd = R.id.button3
         button4Params.marginStart = width/20
-        button4Params.bottomToBottom = R.id.randomConsonant
+        button4Params.bottomToBottom = R.id.sequenceConsonant
         button4Params.bottomMargin = height/8
-        button4Params.endToEnd = R.id.randomConsonant
+        button4Params.endToEnd = R.id.sequenceConsonant
         button4Params.marginEnd = width/7
         button4.requestLayout()
 
